@@ -71,12 +71,26 @@ Kryteria sukcesu i zakres są w `.claude/project-state.md`.
 - Pliki: `rozbieznosci/model.py`, `rozbieznosci/wyjasnij.py`;
   testy w `testy/test_wyjasnij.py`.
 
+### Interpretacja pytań i API analizy
+
+- `parse_request` rozpoznaje klienta, ostatnie pół roku/rok, zakres dat
+  i próg procentowy. Przy nieznanym lub niejednoznacznym kliencie zwraca
+  prośbę o doprecyzowanie zamiast zgadywać.
+- `POST /api/analyses` przyjmuje pytanie albo jawne filtry. Zapisuje wyniki
+  w SQLite. `GET /api/analyses/{id}` i `GET /api/analyses/{id}/cases/{case_id}`
+  odczytują analizę i sprawę.
+- API rozróżnia `no_invoices`, `no_discrepancies`, `discrepancies` i
+  `needs_review`. Pytania niejednoznaczne otrzymują 409 z opcjami.
+- Pliki: `rozbieznosci/pytanie.py`, `rozbieznosci/app.py`,
+  `rozbieznosci/schema.sql`; testy w `testy/test_pytanie.py` i
+  `testy/test_api.py`.
+
 ## Architektura
 
 Pełny opis w `.Codex/architecture.md`. Detektor kwot jest deterministyczny;
 wyjaśniacz ocenia źródła, ale dopuszcza tylko zweryfikowane cytaty. Projekt
 jest jednym lokalnym serwisem z bazą SQLite. Obecnie działają generator
-danych, detektor, indeks i wyjaśniacz; API i UI są następnymi etapami.
+danych, detektor, indeks, wyjaśniacz i API; UI jest następnym etapem.
 
 ## Design system
 
@@ -85,8 +99,8 @@ HTML jest prototypem wizualnym z odpowiedziami na sztywno, nie logiką aplikacji
 
 ## Plan budowy
 
-Plan w `.Codex/build-plan.md` został zatwierdzony. Etapy 1–4 wykonane.
-Następny etap: interpretacja pytań i API analizy.
+Plan w `.Codex/build-plan.md` został zatwierdzony. Etapy 1–5 wykonane.
+Następny etap: interfejs od pytania do dowodu.
 
 ## Ważne decyzje
 

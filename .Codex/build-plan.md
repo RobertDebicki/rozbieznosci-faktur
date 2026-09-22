@@ -114,7 +114,7 @@ podstawionego dostawcy, bez sieci. Uruchomić `pytest testy/test_wyjasnij.py
 -q` przed i po wdrożeniu. Jedno rzeczywiste wywołanie API wykonać dopiero
 po podaniu klucza w środowisku; brak klucza ma czytelny status w aplikacji.
 
-## Etap 5 — Interpretacja pytań i API analizy
+## Etap 5 — Interpretacja pytań i API analizy ✅
 
 **Wynik:** użytkownik może podać klienta, datę i próg zwykłym językiem
 albo formularzem. Wynik API zwraca zrozumiane filtry, sprawy i statusy.

@@ -5,6 +5,12 @@ from datetime import date
 
 
 @dataclass(frozen=True)
+class Client:
+    id: int
+    name: str
+
+
+@dataclass(frozen=True)
 class CaseSpec:
     category: str
     baseline_cents: int

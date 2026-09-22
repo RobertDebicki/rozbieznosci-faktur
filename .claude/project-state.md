@@ -43,7 +43,8 @@ Etap 1: generator danych i zestaw ewaluacyjny — wykonany.
 Etap 2: deterministyczny detektor rozbieżności — wykonany.
 Etap 3: indeks dokumentów i wyszukiwanie dowodów — wykonany.
 Etap 4: wyjaśniacz z kontrolą dowodów i jawną symulacją — wykonany.
-Następny jest etap 5: interpretacja pytań i API analizy.
+Etap 5: interpretacja pytań i API analizy — wykonany.
+Następny jest etap 6: interfejs od pytania do dowodu.
 
 ---
 

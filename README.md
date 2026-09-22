@@ -1,6 +1,6 @@
 # Rozbieznosci faktura vs wycena — agent dochodzeniowy
 
-> 🚧 Brief, mockup, architektura i plan zatwierdzone. Działają generator danych, deterministyczny detektor, indeks dowodów i wyjaśniacz. Interfejs powstanie w kolejnych etapach.
+> 🚧 Brief, mockup, architektura i plan zatwierdzone. Działają generator danych, detektor, indeks dowodów, wyjaśniacz i API. Interfejs powstanie w kolejnym etapie.
 
 ## Problem
 
@@ -32,7 +32,7 @@ dowodu w tekscie. Dzieki temu kwota w raporcie nigdy nie jest zmyslona.
 | Dane syntetyczne | ✅ generator i lokalne dokumenty |
 | Zestaw ewaluacyjny | ✅ 30 spraw, w tym 5 bez potwierdzalnej przyczyny |
 | Plan budowy | ✅ zatwierdzony; `.Codex/build-plan.md` |
-| Implementacja | ⏳ etapy 1–4 z 8 |
+| Implementacja | ⏳ etapy 1–5 z 8 |
 | Wyniki i pomiary | ❌ |
 
 ## Dane
@@ -81,3 +81,7 @@ danych syntetycznych. Adapter `GroqProvider` może użyć klucza
 w podanym fragmencie oraz kwotę zgodną z detektorem; w przeciwnym razie
 zwraca „przyczyna nieustalona”. Wywołanie prawdziwego API wymaga własnego
 klucza i nie jest potrzebne do lokalnej demonstracji.
+
+API w `rozbieznosci/app.py` przyjmuje pytanie o klienta i okres przez
+`POST /api/analyses`, zapisuje wynik i zwraca szczegóły przez
+`GET /api/analyses/{id}`. Interfejs przeglądarkowy jest następnym etapem.

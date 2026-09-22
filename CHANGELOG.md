@@ -7,6 +7,21 @@ Zapis zmian w projekcie — najnowsze wpisy na górze.
 ## 2026-09-22 — Robert Dębicki
 
 **✅ Zrobione:**
+- Dodano interpretację prostych pytań o klienta, okres i próg rozbieżności.
+- Dodano API tworzenia i odczytu analiz oraz spraw z zapisanymi wynikami.
+- Rozróżniono brak faktur, brak rozbieżności i sprawy wymagające przeglądu.
+
+**🚧 W toku / nie wdrożone:**
+- Interfejs przeglądarkowy, pytania uzupełniające i raport ewaluacyjny.
+
+**🎯 Następny krok:**
+- Zbudować interfejs od pytania do źródła.
+
+---
+
+## 2026-09-22 — Robert Dębicki
+
+**✅ Zrobione:**
 - Dodano wyjaśniacz z walidacją cytatów, kwot i przyczyn oraz uczciwym `unknown`.
 - Dodano adapter Groq i jawną symulację modelu dla danych demonstracyjnych.
 - Sprawdzono wszystkie 30 spraw syntetycznych bez wywołania zewnętrznego API.

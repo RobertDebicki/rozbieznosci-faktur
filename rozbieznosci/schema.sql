@@ -142,3 +142,9 @@ CREATE TABLE IF NOT EXISTS invoice_items (
     vat_cents INTEGER NOT NULL CHECK (typeof(vat_cents) = 'integer' AND vat_cents >= 0)
 );
 CREATE INDEX IF NOT EXISTS idx_invoice_items_invoice ON invoice_items(invoice_id);
+
+CREATE TABLE IF NOT EXISTS analyses (
+    id INTEGER PRIMARY KEY,
+    created_at TEXT NOT NULL DEFAULT (datetime('now')),
+    result_json TEXT NOT NULL
+);
