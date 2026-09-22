@@ -24,5 +24,6 @@
       {% endfor %}
     </div>
   {% endif %}
+  <section class="card followup-card" aria-labelledby="followup-title"><p class="eyebrow">Dopytaj o wynik</p><h2 id="followup-title">Masz pytanie do tej analizy?</h2><p>Odpowiemy na podstawie zapisanych kwot i tych samych źródeł.</p><div class="chips"><button type="button" class="chip" data-followup-example="Która rozbieżność jest największa?">Która różnica jest największa?</button><button type="button" class="chip" data-followup-example="Ile jest rozbieżności?">Ile jest rozbieżności?</button></div><form class="followup-form" data-analysis-id="{{ analysis.id }}"><label for="followup-question">Twoje pytanie</label><div class="followup-controls"><input id="followup-question" name="question" type="text" placeholder="Np. Która rozbieżność jest największa?" required maxlength="500"><button type="submit" class="button button-primary">Zapytaj</button></div></form><div class="followup-feedback" role="status" aria-live="polite"></div><div class="followup-answers">{% for item in followups %}<article class="followup-answer"><span>Twoje pytanie</span><strong>{{ item.question }}</strong><p>{{ item.text }}</p>{% if item.case_id %}<a href="/analyses/{{ analysis.id }}/cases/{{ item.case_id }}">Otwórz sprawę →</a>{% endif %}</article>{% endfor %}</div></section>
 </div>
 {% endblock %}

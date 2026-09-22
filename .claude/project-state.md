@@ -45,7 +45,8 @@ Etap 3: indeks dokumentów i wyszukiwanie dowodów — wykonany.
 Etap 4: wyjaśniacz z kontrolą dowodów i jawną symulacją — wykonany.
 Etap 5: interpretacja pytań i API analizy — wykonany.
 Etap 6: interfejs od pytania do dowodu — wykonany.
-Następny jest etap 7: pytania uzupełniające i historia odpowiedzi.
+Etap 7: pytania uzupełniające i historia odpowiedzi — wykonany.
+Następny jest etap 8: ewaluacja, dokumentacja i demonstracja.
 
 ---
 

@@ -17,6 +17,7 @@ from pydantic import BaseModel, Field
 
 from .db import open_db
 from .detektor import detect
+from .dopytaj import answer_followup
 from .model import DemoProvider, LLMProvider
 from .models import Client
 from .pytanie import AnalysisRequest, Clarification, months_before, parse_request
@@ -32,6 +33,11 @@ class AnalysisInput(BaseModel):
     date_to: date | None = None
     min_difference_pct: Decimal = Field(default=Decimal(0), ge=0)
     min_difference_cents: int = Field(default=0, ge=0)
+
+
+class FollowupInput(BaseModel):
+    question: str = Field(min_length=1, max_length=500)
+    case_id: int | None = None
 
 
 def create_app(
@@ -199,10 +205,54 @@ def create_app(
                         "locator": source["locator"], "text": source["text"]}
         raise HTTPException(404, "Źródło nie należy do tej sprawy.")
 
+    def _followups(analysis_id: int, case_id: int | None = None) -> list[dict]:
+        db = open_db(path)
+        try:
+            rows = db.execute(
+                "SELECT id, case_id, question, answer_json FROM followups "
+                "WHERE analysis_id = ? AND (? IS NULL OR case_id = ?) ORDER BY id",
+                (analysis_id, case_id, case_id),
+            ).fetchall()
+            return [{"id": row[0], "question": row[2],
+                     **json.loads(row[3])} for row in rows]
+        finally:
+            db.close()
+
+    @app.post("/api/analyses/{analysis_id}/questions")
+    def ask_followup(analysis_id: int, payload: FollowupInput):
+        if not path.is_file():
+            raise HTTPException(404, "Nie znaleziono analizy.")
+        db = open_db(path)
+        try:
+            try:
+                answer = answer_followup(
+                    analysis_id, payload.case_id, payload.question, db, explanation_provider
+                )
+            except ValueError as exc:
+                raise HTTPException(404, str(exc)) from exc
+            result = asdict(answer)
+            with db:
+                cursor = db.execute(
+                    "INSERT INTO followups (analysis_id, case_id, question, answer_json) "
+                    "VALUES (?, ?, ?, ?)",
+                    (analysis_id, payload.case_id, payload.question,
+                     json.dumps(result, ensure_ascii=False)),
+                )
+            return {"id": cursor.lastrowid, "question": payload.question, **result}
+        finally:
+            db.close()
+
+    @app.get("/api/analyses/{analysis_id}/questions")
+    def list_followups(analysis_id: int):
+        get_analysis(analysis_id)
+        return _followups(analysis_id)
+
     @app.get("/analyses/{analysis_id}")
     def results_page(request: Request, analysis_id: int):
         analysis = get_analysis(analysis_id)
-        return templates.TemplateResponse(request, "results.html", {"analysis": analysis})
+        return templates.TemplateResponse(request, "results.html", {
+            "analysis": analysis, "followups": _followups(analysis_id),
+        })
 
     @app.get("/analyses/{analysis_id}/cases/{case_id}")
     def case_page(request: Request, analysis_id: int, case_id: int):
@@ -210,6 +260,7 @@ def create_app(
         case = get_case(analysis_id, case_id)
         return templates.TemplateResponse(request, "case.html", {
             "analysis": analysis, "case": case,
+            "followups": _followups(analysis_id, case_id),
         })
 
     @app.get("/history")

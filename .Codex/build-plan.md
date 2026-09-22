@@ -155,7 +155,7 @@ nie jest podpisany jako brak rozbieżności, niedostępne źródło nie ma aktyw
 `pytest testy/test_widoki.py -q`, następnie ręcznie przejść główną ścieżkę
 na szerokim i wąskim ekranie. W CSS przenieść tokeny z `design-system.md`.
 
-## Etap 7 — Pytania uzupełniające i historia
+## Etap 7 — Pytania uzupełniające i historia ✅
 
 **Wynik:** użytkownik pyta o wynik lub sprawę; odpowiedź odnosi się do
 aktualnej analizy i wskazuje źródła. Historia otwiera zapisane analizy.

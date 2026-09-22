@@ -7,6 +7,21 @@ Zapis zmian w projekcie — najnowsze wpisy na górze.
 ## 2026-09-22 — Robert Dębicki
 
 **✅ Zrobione:**
+- Dodano pytania uzupełniające o analizę i konkretną fakturę.
+- Odpowiedzi korzystają z zapisanych kwot i cytatów, są utrwalane w bazie.
+- Sprawdzono pytania i odświeżenie historii w przeglądarce.
+
+**🚧 W toku / nie wdrożone:**
+- Końcowy raport ewaluacyjny i podsumowanie demonstracji.
+
+**🎯 Następny krok:**
+- Zmierzyć skuteczność na 30 sprawach i dopracować README.
+
+---
+
+## 2026-09-22 — Robert Dębicki
+
+**✅ Zrobione:**
 - Dodano responsywny interfejs od pytania przez wynik do cytatu źródłowego.
 - Dodano stany braku faktur i braku rozbieżności, historię analiz i pomoc.
 - Sprawdzono główną ścieżkę oraz widok mobilny w przeglądarce.

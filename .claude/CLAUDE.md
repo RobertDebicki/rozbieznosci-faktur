@@ -13,6 +13,7 @@ Etap 3: indeks FTS5 i wyszukiwanie semantyczne we fragmentach źródeł.
 Etap 4: wyjaśniacz z walidacją kwoty, cytatu i przyczyny; jawny tryb demo.
 Etap 5: interpretacja typowych pytań księgowych i API zapisujące analizy.
 Etap 6: responsywny interfejs od pytania przez wynik do cytatu źródłowego.
+Etap 7: pytania uzupełniające o zapisany wynik i historia odpowiedzi.
 Szczegóły i pliki są w `.Codex/AGENTS.md`.
 
 ## Architektura
@@ -22,7 +23,7 @@ Zatwierdzona architektura i przepływy użytkownika są w `.Codex/architecture.m
 Zatwierdzony mockup i tokeny CSS są w `.Codex/design-system.md`.
 
 ## Plan budowy
-Plan zatwierdzony. Etapy 1–6 wykonane; następne są pytania uzupełniające.
+Plan zatwierdzony. Etapy 1–7 wykonane; następna jest końcowa ewaluacja.
 
 ## Wazne decyzje
 

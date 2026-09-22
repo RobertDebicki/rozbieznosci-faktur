@@ -148,3 +148,13 @@ CREATE TABLE IF NOT EXISTS analyses (
     created_at TEXT NOT NULL DEFAULT (datetime('now')),
     result_json TEXT NOT NULL
 );
+
+CREATE TABLE IF NOT EXISTS followups (
+    id INTEGER PRIMARY KEY,
+    analysis_id INTEGER NOT NULL REFERENCES analyses(id) ON DELETE CASCADE,
+    case_id INTEGER,
+    question TEXT NOT NULL,
+    answer_json TEXT NOT NULL,
+    created_at TEXT NOT NULL DEFAULT (datetime('now'))
+);
+CREATE INDEX IF NOT EXISTS idx_followups_analysis ON followups(analysis_id, id);

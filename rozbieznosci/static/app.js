@@ -90,3 +90,48 @@ document.querySelectorAll('.source-button').forEach(button => button.addEventLis
 }));
 dialog?.querySelector('.dialog-close')?.addEventListener('click', () => dialog.close());
 dialog?.addEventListener('click', event => { if (event.target === dialog) dialog.close(); });
+
+const followupForm = document.querySelector('.followup-form');
+document.querySelectorAll('[data-followup-example]').forEach(button => button.addEventListener('click', () => {
+  const input = followupForm?.querySelector('input[name="question"]');
+  if (input) { input.value = button.dataset.followupExample; input.focus(); }
+}));
+followupForm?.addEventListener('submit', async event => {
+  event.preventDefault();
+  const input = followupForm.querySelector('input[name="question"]');
+  const button = followupForm.querySelector('button[type="submit"]');
+  const feedback = document.querySelector('.followup-feedback');
+  const question = input.value.trim();
+  if (!question) return;
+  button.disabled = true;
+  feedback.textContent = 'Szukamy odpowiedzi w tej analizie…';
+  const analysisId = followupForm.dataset.analysisId;
+  try {
+    const response = await fetch(`/api/analyses/${analysisId}/questions`, {
+      method: 'POST', headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({question, case_id: followupForm.dataset.caseId ? Number(followupForm.dataset.caseId) : null})
+    });
+    if (!response.ok) throw new Error('Nie udało się zapisać odpowiedzi. Spróbuj ponownie.');
+    const answer = await response.json();
+    const article = document.createElement('article');
+    article.className = 'followup-answer';
+    const label = document.createElement('span'); label.textContent = 'Twoje pytanie';
+    const heading = document.createElement('strong'); heading.textContent = question;
+    const paragraph = document.createElement('p'); paragraph.textContent = answer.text;
+    article.append(label, heading, paragraph);
+    if (answer.case_id && !followupForm.dataset.caseId) {
+      const link = document.createElement('a');
+      link.href = `/analyses/${analysisId}/cases/${answer.case_id}`;
+      link.textContent = 'Otwórz sprawę →';
+      article.append(link);
+    }
+    if (answer.status === 'new_analysis_required') {
+      const link = document.createElement('a'); link.href = '/'; link.textContent = 'Rozpocznij nową analizę →'; article.append(link);
+    }
+    document.querySelector('.followup-answers').prepend(article);
+    input.value = '';
+    feedback.textContent = 'Odpowiedź dodana poniżej.';
+  } catch (error) {
+    feedback.textContent = error.message;
+  } finally { button.disabled = false; }
+});

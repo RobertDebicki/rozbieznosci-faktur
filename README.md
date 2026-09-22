@@ -1,6 +1,6 @@
 # Rozbieznosci faktura vs wycena — agent dochodzeniowy
 
-> 🚧 Działa przeglądarkowa demonstracja od pytania do cytatu. Pytania uzupełniające i raport ewaluacyjny powstaną w kolejnych etapach.
+> 🚧 Działa przeglądarkowa demonstracja od pytania do cytatu i pytania uzupełniające. Pozostał końcowy raport ewaluacyjny.
 
 ## Problem
 
@@ -32,7 +32,7 @@ dowodu w tekscie. Dzieki temu kwota w raporcie nigdy nie jest zmyslona.
 | Dane syntetyczne | ✅ generator i lokalne dokumenty |
 | Zestaw ewaluacyjny | ✅ 30 spraw, w tym 5 bez potwierdzalnej przyczyny |
 | Plan budowy | ✅ zatwierdzony; `.Codex/build-plan.md` |
-| Implementacja | ⏳ etapy 1–6 z 8 |
+| Implementacja | ⏳ etapy 1–7 z 8 |
 | Wyniki i pomiary | ❌ |
 
 ## Dane
@@ -98,3 +98,7 @@ Otwórz `http://127.0.0.1:8000`. Wersja bez modelu embeddingów działa po
 indeksowaniu z `--fts-only`; wyjaśnienia tworzy jawna symulacja
 `DemoProvider` na przygotowanych dokumentach. Jeśli używasz bazy pod inną
 ścieżką, ustaw `DEMO_DB_PATH` przed uruchomieniem serwera.
+
+Po otrzymaniu wyniku możesz zapytać o największą różnicę, liczbę
+rozbieżności lub przyczynę i kwotę konkretnej faktury. Odpowiedzi są
+zapisywane i widoczne po ponownym otwarciu analizy.

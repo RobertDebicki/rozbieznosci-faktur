@@ -98,13 +98,27 @@ Kryteria sukcesu i zakres są w `.claude/project-state.md`.
 - Pliki: `rozbieznosci/app.py`, `rozbieznosci/templates/`,
   `rozbieznosci/static/`; testy w `testy/test_widoki.py`.
 
+### Pytania uzupełniające
+
+- Użytkownik może dopytać o największą różnicę, liczbę rozbieżności,
+  kwotę lub przyczynę konkretnej faktury. Odpowiedź korzysta z zapisanego
+  wyniku analizy; kwoty są liczone w kodzie, cytaty pochodzą z tej sprawy.
+- Pytanie o nowego klienta lub okres kieruje do nowej analizy. Pytanie
+  spoza zakresu dostaje czytelny komunikat bez zmyślania odpowiedzi.
+- `POST /api/analyses/{id}/questions` zapisuje pytanie i odpowiedź;
+  `GET /api/analyses/{id}/questions` je odtwarza. Formularze są na stronie
+  wyników i sprawy.
+- Pliki: `rozbieznosci/dopytaj.py`, `rozbieznosci/app.py`,
+  `rozbieznosci/schema.sql`, szablony i `static/app.js`;
+  testy w `testy/test_dopytaj.py`.
+
 ## Architektura
 
 Pełny opis w `.Codex/architecture.md`. Detektor kwot jest deterministyczny;
 wyjaśniacz ocenia źródła, ale dopuszcza tylko zweryfikowane cytaty. Projekt
 jest jednym lokalnym serwisem z bazą SQLite. Obecnie działają generator
-danych, detektor, indeks, wyjaśniacz, API i UI. Następne są pytania
-uzupełniające oraz końcowa ewaluacja.
+danych, detektor, indeks, wyjaśniacz, API, UI i pytania uzupełniające.
+Następna jest końcowa ewaluacja.
 
 ## Design system
 
@@ -113,8 +127,8 @@ HTML jest prototypem wizualnym z odpowiedziami na sztywno, nie logiką aplikacji
 
 ## Plan budowy
 
-Plan w `.Codex/build-plan.md` został zatwierdzony. Etapy 1–6 wykonane.
-Następny etap: pytania uzupełniające i historia odpowiedzi.
+Plan w `.Codex/build-plan.md` został zatwierdzony. Etapy 1–7 wykonane.
+Następny etap: ewaluacja, dokumentacja i demonstracja.
 
 ## Ważne decyzje
 
