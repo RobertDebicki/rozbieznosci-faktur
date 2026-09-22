@@ -10,12 +10,13 @@ Zapis zmian w projekcie — najnowsze wpisy na górze.
 - Dodano cztery zrzuty prawdziwego interfejsu demonstracyjnego na danych syntetycznych.
 - README pokazuje przepływ od pytania przez wynik do dowodu źródłowego.
 - Dodano workflow GitHub Actions, który uruchamia testy z zależnościami z `uv.lock`.
+- Otworzono PR #2; workflow GitHub Actions przeszedł na GitHubie.
 
 **🚧 W toku / nie wdrożone:**
-- Workflow zostanie uruchomiony na GitHubie po wysłaniu brancha; lokalnie testy przechodzą.
+- Zmiany są w PR #2 i czekają na połączenie z `main`.
 
 **🎯 Następny krok:**
-- Otworzyć pull request i sprawdzić wynik workflow na GitHubie.
+- Połączyć PR #2 z `main`, a potem rozpocząć brief drugiego projektu.
 
 ---
 
