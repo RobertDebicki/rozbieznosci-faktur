@@ -4,6 +4,21 @@ Zapis zmian w projekcie — najnowsze wpisy na górze.
 
 ---
 
+## 2026-09-22 18:49 — Robert Dębicki
+
+**✅ Zrobione:**
+- Dodano cztery zrzuty prawdziwego interfejsu demonstracyjnego na danych syntetycznych.
+- README pokazuje przepływ od pytania przez wynik do dowodu źródłowego.
+- Dodano workflow GitHub Actions, który uruchamia testy z zależnościami z `uv.lock`.
+
+**🚧 W toku / nie wdrożone:**
+- Workflow zostanie uruchomiony na GitHubie po wysłaniu brancha; lokalnie testy przechodzą.
+
+**🎯 Następny krok:**
+- Otworzyć pull request i sprawdzić wynik workflow na GitHubie.
+
+---
+
 ## 2026-09-22 16:09 — Robert Dębicki
 
 **✅ Zrobione:**

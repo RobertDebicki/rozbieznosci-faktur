@@ -126,6 +126,14 @@ Kryteria sukcesu i zakres są w `.claude/project-state.md`.
 - Pliki: `skrypty/ewaluuj.py`, `rozbieznosci/pomiary.py`,
   `ewaluacja/wyniki/raport.json`; testy w `testy/test_ewaluacja.py`.
 
+### Prezentacja i automatyczne testy
+
+- `README.md` prowadzi przez pytanie, wynik i sprawę; zrzuty rzeczywistego UI
+  na danych syntetycznych są w `docs/images/`.
+- `.github/workflows/tests.yml` uruchamia 47 testów `pytest` dla PR i zmian
+  na `main`, z Pythonem 3.12 i zależnościami z `uv.lock`.
+- Nie są wymagane klucz Groq ani zewnętrzne integracje.
+
 ## Architektura
 
 Pełny opis w `.Codex/architecture.md`. Detektor kwot jest deterministyczny;
@@ -143,6 +151,7 @@ HTML jest prototypem wizualnym z odpowiedziami na sztywno, nie logiką aplikacji
 
 Plan w `.Codex/build-plan.md` został zatwierdzony. Etapy 1–8 wykonane.
 Wersja demonstracyjna jest gotowa do lokalnego uruchomienia.
+Prezentacja repozytorium i workflow CI są przygotowane na osobnym branchu.
 
 ## Ważne decyzje
 

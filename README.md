@@ -2,6 +2,24 @@
 
 > Gotowa demonstracja przeglądarkowa na danych syntetycznych. Pracownik wpisuje zwykłe pytanie, widzi policzone rozbieżności, źródła i może dopytać o wynik.
 
+## Zobacz, jak działa
+
+1. Użytkownik wpisuje pytanie zwykłym językiem lub wybiera gotowy przykład.
+
+   ![Ekran startowy z pytaniem i szybkim sprawdzeniem](docs/images/01-pytanie.png)
+
+2. Aplikacja pokazuje zakres analizy, liczbę rozbieżności i listę faktur.
+
+   ![Podsumowanie analizy i lista faktur](docs/images/02-wyniki.png)
+
+3. W szczegółach widać obliczenie kwoty, przyczynę i cytat z dokumentu.
+
+   ![Szczegół faktury z wyliczeniem i dowodem](docs/images/03-sprawa.png)
+
+   [Zobacz podgląd dokumentu źródłowego](docs/images/04-dowod.png).
+
+Zrzuty pochodzą z lokalnej aplikacji uruchomionej na danych syntetycznych.
+
 ## Problem
 
 Firma wykonawcza traci marze i nie wie gdzie. Wartosci na fakturach odbiegaja od wycen,
@@ -63,6 +81,10 @@ Testy i osobny detektor uruchomisz tak:
 uv run --extra dev pytest -q
 uv run --extra dev python -m skrypty.sprawdz --db dane/portfolio-demo.sqlite --last-months 12
 ```
+
+Na GitHubie workflow [Testy](.github/workflows/tests.yml) uruchamia `pytest`
+przy każdym pull requeście i zmianie na `main`, używając wersji zależności
+z `uv.lock`. Nie potrzebuje klucza API ani usług zewnętrznych.
 
 `skrypty.sprawdz` pokazuje faktury z wybranego okresu i ich status:
 `equal`, `difference` albo `not_comparable` (brak przypisanej transzy).
