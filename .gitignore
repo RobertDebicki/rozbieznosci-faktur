@@ -1,0 +1,29 @@
+# Sekrety — nigdy w repo
+.env
+*.env
+!.env.example
+
+# Dane osobowe i realne dane klientow — nigdy w repo, nawet przypadkiem
+dane/realne/
+dane/*-DANE-OSOBOWE.*
+dane/*.sqlite
+dane/*.sqlite-shm
+dane/*.sqlite-wal
+raporty/*.csv
+eksport/
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+.pytest_cache/
+.ruff_cache/
+.agents/
+
+# System
+.DS_Store
+
+# Artefakty budowania
+*.egg-info/
+build/
+dist/

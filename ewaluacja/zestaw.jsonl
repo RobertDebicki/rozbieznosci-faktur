@@ -1,0 +1,30 @@
+{"case_id": "DEMO-001", "client_id": 1, "project_id": 1, "invoice_id": 1, "expected_cause": "none", "expected_difference_cents": 0, "evidence_document_ids": [1]}
+{"case_id": "DEMO-002", "client_id": 2, "project_id": 2, "invoice_id": 2, "expected_cause": "approved_change", "expected_difference_cents": 240000, "evidence_document_ids": [3, 5]}
+{"case_id": "DEMO-003", "client_id": 3, "project_id": 3, "invoice_id": 3, "expected_cause": "discount", "expected_difference_cents": -150000, "evidence_document_ids": [6, 8]}
+{"case_id": "DEMO-004", "client_id": 4, "project_id": 4, "invoice_id": 4, "expected_cause": "extra_work", "expected_difference_cents": 210000, "evidence_document_ids": [9, 11]}
+{"case_id": "DEMO-005", "client_id": 5, "project_id": 5, "invoice_id": 5, "expected_cause": "invoice_or_estimate_error", "expected_difference_cents": 230000, "evidence_document_ids": [12, 14]}
+{"case_id": "DEMO-006", "client_id": 6, "project_id": 6, "invoice_id": 6, "expected_cause": "unknown", "expected_difference_cents": 220000, "evidence_document_ids": []}
+{"case_id": "DEMO-007", "client_id": 7, "project_id": 7, "invoice_id": 7, "expected_cause": "none", "expected_difference_cents": 0, "evidence_document_ids": [18]}
+{"case_id": "DEMO-008", "client_id": 8, "project_id": 8, "invoice_id": 8, "expected_cause": "approved_change", "expected_difference_cents": 100000, "evidence_document_ids": [20, 22]}
+{"case_id": "DEMO-009", "client_id": 9, "project_id": 9, "invoice_id": 9, "expected_cause": "discount", "expected_difference_cents": -170000, "evidence_document_ids": [23, 25]}
+{"case_id": "DEMO-010", "client_id": 10, "project_id": 10, "invoice_id": 10, "expected_cause": "extra_work", "expected_difference_cents": 220000, "evidence_document_ids": [26, 28]}
+{"case_id": "DEMO-011", "client_id": 1, "project_id": 11, "invoice_id": 11, "expected_cause": "invoice_or_estimate_error", "expected_difference_cents": 230000, "evidence_document_ids": [29, 31]}
+{"case_id": "DEMO-012", "client_id": 2, "project_id": 12, "invoice_id": 12, "expected_cause": "unknown", "expected_difference_cents": 140000, "evidence_document_ids": []}
+{"case_id": "DEMO-013", "client_id": 3, "project_id": 13, "invoice_id": 13, "expected_cause": "none", "expected_difference_cents": 0, "evidence_document_ids": [35]}
+{"case_id": "DEMO-014", "client_id": 4, "project_id": 14, "invoice_id": 14, "expected_cause": "approved_change", "expected_difference_cents": 190000, "evidence_document_ids": [37, 39]}
+{"case_id": "DEMO-015", "client_id": 5, "project_id": 15, "invoice_id": 15, "expected_cause": "discount", "expected_difference_cents": -240000, "evidence_document_ids": [40, 42]}
+{"case_id": "DEMO-016", "client_id": 6, "project_id": 16, "invoice_id": 16, "expected_cause": "extra_work", "expected_difference_cents": 180000, "evidence_document_ids": [43, 45]}
+{"case_id": "DEMO-017", "client_id": 7, "project_id": 17, "invoice_id": 17, "expected_cause": "invoice_or_estimate_error", "expected_difference_cents": 170000, "evidence_document_ids": [46, 48]}
+{"case_id": "DEMO-018", "client_id": 8, "project_id": 18, "invoice_id": 18, "expected_cause": "unknown", "expected_difference_cents": 220000, "evidence_document_ids": []}
+{"case_id": "DEMO-019", "client_id": 9, "project_id": 19, "invoice_id": 19, "expected_cause": "none", "expected_difference_cents": 0, "evidence_document_ids": [52]}
+{"case_id": "DEMO-020", "client_id": 10, "project_id": 20, "invoice_id": 20, "expected_cause": "approved_change", "expected_difference_cents": 190000, "evidence_document_ids": [54, 56]}
+{"case_id": "DEMO-021", "client_id": 1, "project_id": 21, "invoice_id": 21, "expected_cause": "discount", "expected_difference_cents": -220000, "evidence_document_ids": [57, 59]}
+{"case_id": "DEMO-022", "client_id": 2, "project_id": 22, "invoice_id": 22, "expected_cause": "extra_work", "expected_difference_cents": 100000, "evidence_document_ids": [60, 62]}
+{"case_id": "DEMO-023", "client_id": 3, "project_id": 23, "invoice_id": 23, "expected_cause": "invoice_or_estimate_error", "expected_difference_cents": 230000, "evidence_document_ids": [63, 65]}
+{"case_id": "DEMO-024", "client_id": 4, "project_id": 24, "invoice_id": 24, "expected_cause": "unknown", "expected_difference_cents": 210000, "evidence_document_ids": []}
+{"case_id": "DEMO-025", "client_id": 5, "project_id": 25, "invoice_id": 25, "expected_cause": "none", "expected_difference_cents": 0, "evidence_document_ids": [69]}
+{"case_id": "DEMO-026", "client_id": 6, "project_id": 26, "invoice_id": 26, "expected_cause": "approved_change", "expected_difference_cents": 240000, "evidence_document_ids": [71, 73]}
+{"case_id": "DEMO-027", "client_id": 7, "project_id": 27, "invoice_id": 27, "expected_cause": "discount", "expected_difference_cents": -210000, "evidence_document_ids": [74, 76]}
+{"case_id": "DEMO-028", "client_id": 8, "project_id": 28, "invoice_id": 28, "expected_cause": "extra_work", "expected_difference_cents": 230000, "evidence_document_ids": [77, 79]}
+{"case_id": "DEMO-029", "client_id": 9, "project_id": 29, "invoice_id": 29, "expected_cause": "invoice_or_estimate_error", "expected_difference_cents": 240000, "evidence_document_ids": [80, 82]}
+{"case_id": "DEMO-030", "client_id": 10, "project_id": 30, "invoice_id": 30, "expected_cause": "unknown", "expected_difference_cents": 150000, "evidence_document_ids": []}

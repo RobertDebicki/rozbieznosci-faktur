@@ -1,0 +1,25 @@
+[project]
+name = "rozbieznosci-faktur"
+version = "0.1.0"
+description = "Agent dochodzeniowy: wykrywa rozbieznosci faktura vs wycena i szuka przyczyny w dokumentach i korespondencji, z dowodem przy kazdej tezie."
+requires-python = ">=3.11"
+# Dalsze zależności dojdą razem z etapami, które ich używają.
+dependencies = [
+    "python-dotenv>=1.0",
+]
+
+[project.optional-dependencies]
+dev = ["pytest>=8.0"]
+
+[tool.pytest.ini_options]
+testpaths = ["testy"]
+
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools]
+packages = ["rozbieznosci", "skrypty"]
+
+[tool.setuptools.package-data]
+rozbieznosci = ["schema.sql"]
