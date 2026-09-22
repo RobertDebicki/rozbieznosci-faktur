@@ -43,12 +43,27 @@ Kryteria sukcesu i zakres są w `.claude/project-state.md`.
   `rozbieznosci/schema.sql`, `skrypty/sprawdz.py`; testy w
   `testy/test_detektor.py`.
 
+### Indeks i wyszukiwanie dowodów
+
+- `python -m skrypty.indeksuj` dzieli lokalne dokumenty na fragmenty,
+  zapisuje ich lokalizatory i buduje indeks SQLite FTS5 oraz lokalne wektory
+  wielojęzycznego modelu Sentence Transformers.
+- `--fts-only` pozwala zaindeksować wyłącznie dokładne frazy bez pobierania
+  modelu. Pełny tryb wymaga `uv sync --extra retrieval` i pierwszego pobrania
+  modelu. Ponowne indeksowanie zastępuje stare fragmenty.
+- `retrieve(db, project_id, query)` łączy ranking tekstowy i semantyczny;
+  fragmenty innych projektów są odfiltrowane. Brakujące lub nieczytelne pliki
+  otrzymują `available = 0` i nie są cytowane jako dowód.
+- Pliki: `rozbieznosci/indeks.py`, `rozbieznosci/szukaj.py`,
+  `rozbieznosci/schema.sql`, `skrypty/indeksuj.py`; testy w
+  `testy/test_szukaj.py`.
+
 ## Architektura
 
 Pełny opis w `.Codex/architecture.md`. Detektor kwot jest deterministyczny;
 agent językowy później oceni dowody dla różnic. Projekt jest jednym lokalnym
-serwisem z bazą SQLite. Obecnie działają generator danych i detektor;
-indeks, API i UI są następnymi etapami.
+serwisem z bazą SQLite. Obecnie działają generator danych, detektor i indeks;
+wyjaśniacz, API i UI są następnymi etapami.
 
 ## Design system
 
@@ -57,8 +72,8 @@ HTML jest prototypem wizualnym z odpowiedziami na sztywno, nie logiką aplikacji
 
 ## Plan budowy
 
-Plan w `.Codex/build-plan.md` został zatwierdzony. Etapy 1 i 2 wykonane.
-Następny etap: indeks i wyszukiwanie dowodów.
+Plan w `.Codex/build-plan.md` został zatwierdzony. Etapy 1–3 wykonane.
+Następny etap: wyjaśniacz z kontrolą dowodów.
 
 ## Ważne decyzje
 
@@ -68,6 +83,8 @@ Następny etap: indeks i wyszukiwanie dowodów.
   porównywana do pełnej wyceny projektu.
 - Faktury bez mapowania transzy pozostają widoczne z uczciwym statusem
   `not_comparable`; nie przypisujemy ich automatycznie.
+- Model embeddingów jest opcjonalną zależnością, więc dokładne frazy działają
+  również na komputerze bez pobranego modelu.
 - Baza demo (`dane/*.sqlite`) jest generowana lokalnie i ignorowana przez git;
   tekstowe źródła i etykiety ewaluacyjne mogą być publiczne.
 - Python 3.12.13 zapewnia `uv` w lokalnym `.venv`; nie trzeba instalować

@@ -10,6 +10,9 @@ dependencies = [
 
 [project.optional-dependencies]
 dev = ["pytest>=8.0"]
+retrieval = [
+    "sentence-transformers>=5,<6",
+]
 
 [tool.pytest.ini_options]
 testpaths = ["testy"]

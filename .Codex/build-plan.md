@@ -71,7 +71,7 @@ faktura poza filtrem dat uwzględniona narastająco, VAT i kaucja poza netto.
 Uruchomić `pytest testy/test_detektor.py -q` przed i po wdrożeniu. Sprawdzić
 wynik `python -m skrypty.sprawdz --last-months 12` na syntetycznej bazie.
 
-## Etap 3 — Indeks i wyszukiwanie dowodów
+## Etap 3 — Indeks i wyszukiwanie dowodów ✅
 
 **Wynik:** zapytanie o projekt, numer aneksu, kwotę lub opis prac zwraca
 fragmenty z identyfikatorem i lokalizatorem. Indeksowanie odbywa się wsadowo.

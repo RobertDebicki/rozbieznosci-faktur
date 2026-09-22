@@ -4,6 +4,21 @@ Zapis zmian w projekcie — najnowsze wpisy na górze.
 
 ---
 
+## 2026-09-22 — Robert Dębicki
+
+**✅ Zrobione:**
+- Dodano indeks fragmentów dokumentów z lokalizatorem i SQLite FTS5.
+- Dodano wyszukiwanie hybrydowe w granicach projektu oraz oznaczanie niedostępnych źródeł.
+- Dodano opcjonalny model embeddingów, tryb bez modelu i testy wyszukiwania.
+
+**🚧 W toku / nie wdrożone:**
+- Wyjaśniacz, API i interfejs przeglądarkowy.
+
+**🎯 Następny krok:**
+- Zbudować wyjaśniacz z kontrolą cytatów i obsługą braku dowodu.
+
+---
+
 ## 2026-09-22 10:36 — Robert Dębicki
 
 **✅ Zrobione:**

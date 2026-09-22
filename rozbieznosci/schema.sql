@@ -55,6 +55,19 @@ CREATE TABLE IF NOT EXISTS documents (
 );
 CREATE INDEX IF NOT EXISTS idx_documents_project ON documents(project_id);
 
+CREATE TABLE IF NOT EXISTS document_chunks (
+    id INTEGER PRIMARY KEY,
+    document_id INTEGER NOT NULL REFERENCES documents(id) ON DELETE CASCADE,
+    locator TEXT NOT NULL,
+    text TEXT NOT NULL,
+    embedding_json TEXT,
+    UNIQUE (document_id, locator)
+);
+CREATE INDEX IF NOT EXISTS idx_document_chunks_document ON document_chunks(document_id);
+CREATE VIRTUAL TABLE IF NOT EXISTS document_fts USING fts5(
+    chunk_id UNINDEXED, text, tokenize = 'unicode61 remove_diacritics 2'
+);
+
 CREATE TABLE IF NOT EXISTS changes (
     id INTEGER PRIMARY KEY,
     stage_id INTEGER NOT NULL REFERENCES stages(id) ON DELETE RESTRICT,

@@ -1,6 +1,6 @@
 # Rozbieznosci faktura vs wycena — agent dochodzeniowy
 
-> 🚧 Brief, mockup, architektura i plan zatwierdzone. Działają generator danych syntetycznych i deterministyczny detektor. Interfejs i wyjaśniacz powstaną w kolejnych etapach.
+> 🚧 Brief, mockup, architektura i plan zatwierdzone. Działają generator danych, deterministyczny detektor i indeks dowodów. Interfejs i wyjaśniacz powstaną w kolejnych etapach.
 
 ## Problem
 
@@ -32,7 +32,7 @@ dowodu w tekscie. Dzieki temu kwota w raporcie nigdy nie jest zmyslona.
 | Dane syntetyczne | ✅ generator i lokalne dokumenty |
 | Zestaw ewaluacyjny | ✅ 30 spraw, w tym 5 bez potwierdzalnej przyczyny |
 | Plan budowy | ✅ zatwierdzony; `.Codex/build-plan.md` |
-| Implementacja | ⏳ etapy 1–2 z 8 |
+| Implementacja | ⏳ etapy 1–3 z 8 |
 | Wyniki i pomiary | ❌ |
 
 ## Dane
@@ -47,6 +47,7 @@ Wymagany jest `uv`. Uruchamia on odpowiednią wersję Pythona w lokalnym `.venv`
 ```bash
 uv run --extra dev python -m skrypty.generuj_dane
 uv run --extra dev python -m skrypty.sprawdz --last-months 12
+uv run --extra dev python -m skrypty.indeksuj --fts-only
 uv run --extra dev pytest -q
 ```
 
@@ -62,3 +63,14 @@ Przykładowe zawężenie: `--client-id 1 --last-months 6 --min-pln 1000`.
 Różnica jest liczona w kwocie netto wobec pierwotnej wyceny transzy;
 zatwierdzone zmiany są liczone osobno. Jeśli lokalna baza powstała przed
 etapem 2, wygeneruj świeżą bazę pod nową ścieżką `--db`.
+
+Indeks dokumentów ma tryb pełnotekstowy oraz semantyczny. Ten drugi wymaga
+jednorazowego pobrania lokalnego modelu:
+
+```bash
+uv sync --extra retrieval
+uv run --extra retrieval python -m skrypty.indeksuj
+```
+
+W obu trybach fragmenty są filtrowane według projektu. Dokument, którego
+nie można odczytać, jest oznaczany jako niedostępny zamiast trafiać do wyników.

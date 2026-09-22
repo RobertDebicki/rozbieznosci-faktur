@@ -41,7 +41,8 @@ komponenty i obsługa błędów są w `../.Codex/architecture.md`.
 Plan w `../.Codex/build-plan.md` został zatwierdzony przez użytkownika.
 Etap 1: generator danych i zestaw ewaluacyjny — wykonany.
 Etap 2: deterministyczny detektor rozbieżności — wykonany.
-Następny jest etap 3: indeks i wyszukiwanie dowodów.
+Etap 3: indeks dokumentów i wyszukiwanie dowodów — wykonany.
+Następny jest etap 4: wyjaśniacz z kontrolą dowodów.
 
 ---
 
