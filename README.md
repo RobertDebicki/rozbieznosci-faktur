@@ -1,6 +1,6 @@
 # Rozbieznosci faktura vs wycena — agent dochodzeniowy
 
-> 🚧 Brief, mockup, architektura i plan zatwierdzone. Działają generator danych, detektor, indeks dowodów, wyjaśniacz i API. Interfejs powstanie w kolejnym etapie.
+> 🚧 Działa przeglądarkowa demonstracja od pytania do cytatu. Pytania uzupełniające i raport ewaluacyjny powstaną w kolejnych etapach.
 
 ## Problem
 
@@ -32,7 +32,7 @@ dowodu w tekscie. Dzieki temu kwota w raporcie nigdy nie jest zmyslona.
 | Dane syntetyczne | ✅ generator i lokalne dokumenty |
 | Zestaw ewaluacyjny | ✅ 30 spraw, w tym 5 bez potwierdzalnej przyczyny |
 | Plan budowy | ✅ zatwierdzony; `.Codex/build-plan.md` |
-| Implementacja | ⏳ etapy 1–5 z 8 |
+| Implementacja | ⏳ etapy 1–6 z 8 |
 | Wyniki i pomiary | ❌ |
 
 ## Dane
@@ -84,4 +84,17 @@ klucza i nie jest potrzebne do lokalnej demonstracji.
 
 API w `rozbieznosci/app.py` przyjmuje pytanie o klienta i okres przez
 `POST /api/analyses`, zapisuje wynik i zwraca szczegóły przez
-`GET /api/analyses/{id}`. Interfejs przeglądarkowy jest następnym etapem.
+`GET /api/analyses/{id}`.
+
+## Uruchomienie interfejsu
+
+Po wygenerowaniu bazy i zaindeksowaniu dokumentów uruchom:
+
+```bash
+uv run uvicorn rozbieznosci.app:app --host 127.0.0.1 --port 8000
+```
+
+Otwórz `http://127.0.0.1:8000`. Wersja bez modelu embeddingów działa po
+indeksowaniu z `--fts-only`; wyjaśnienia tworzy jawna symulacja
+`DemoProvider` na przygotowanych dokumentach. Jeśli używasz bazy pod inną
+ścieżką, ustaw `DEMO_DB_PATH` przed uruchomieniem serwera.

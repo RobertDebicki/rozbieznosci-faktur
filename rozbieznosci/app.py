@@ -3,13 +3,16 @@
 from __future__ import annotations
 
 import json
+import os
 from dataclasses import asdict
 from datetime import date
 from decimal import Decimal
 from pathlib import Path
 
-from fastapi import FastAPI, HTTPException
+from fastapi import FastAPI, HTTPException, Request
 from fastapi.responses import JSONResponse
+from fastapi.staticfiles import StaticFiles
+from fastapi.templating import Jinja2Templates
 from pydantic import BaseModel, Field
 
 from .db import open_db
@@ -19,6 +22,7 @@ from .models import Client
 from .pytanie import AnalysisRequest, Clarification, months_before, parse_request
 from .szukaj import retrieve
 from .wyjasnij import explain
+from .wyjasnij import _pln
 
 
 class AnalysisInput(BaseModel):
@@ -40,6 +44,25 @@ def create_app(
     path = Path(db_path)
     current_day = today or date.today()
     explanation_provider = provider or DemoProvider()
+    asset_dir = Path(__file__).parent
+    templates = Jinja2Templates(directory=str(asset_dir / "templates"))
+    templates.env.filters["pln"] = _pln
+    app.mount("/static", StaticFiles(directory=asset_dir / "static"), name="static")
+
+    @app.get("/")
+    def start_page(request: Request):
+        clients = []
+        if path.is_file():
+            db = open_db(path)
+            try:
+                clients = db.execute("SELECT id, name FROM clients ORDER BY name").fetchall()
+            finally:
+                db.close()
+        return templates.TemplateResponse(request, "start.html", {
+            "clients": clients,
+            "date_from": months_before(current_day, 12).isoformat(),
+            "date_to": current_day.isoformat(),
+        })
 
     @app.post("/api/analyses")
     def create_analysis(payload: AnalysisInput):
@@ -167,4 +190,50 @@ def create_app(
                 return case
         raise HTTPException(404, "Nie znaleziono sprawy w tej analizie.")
 
+    @app.get("/api/analyses/{analysis_id}/cases/{case_id}/sources/{chunk_id}")
+    def get_source(analysis_id: int, case_id: int, chunk_id: int):
+        case = get_case(analysis_id, case_id)
+        for source in case["sources"]:
+            if source["chunk_id"] == chunk_id:
+                return {"document_id": source["document_id"],
+                        "locator": source["locator"], "text": source["text"]}
+        raise HTTPException(404, "Źródło nie należy do tej sprawy.")
+
+    @app.get("/analyses/{analysis_id}")
+    def results_page(request: Request, analysis_id: int):
+        analysis = get_analysis(analysis_id)
+        return templates.TemplateResponse(request, "results.html", {"analysis": analysis})
+
+    @app.get("/analyses/{analysis_id}/cases/{case_id}")
+    def case_page(request: Request, analysis_id: int, case_id: int):
+        analysis = get_analysis(analysis_id)
+        case = get_case(analysis_id, case_id)
+        return templates.TemplateResponse(request, "case.html", {
+            "analysis": analysis, "case": case,
+        })
+
+    @app.get("/history")
+    def history_page(request: Request):
+        analyses = []
+        if path.is_file():
+            db = open_db(path)
+            try:
+                for row in db.execute(
+                    "SELECT id, created_at, result_json FROM analyses ORDER BY id DESC LIMIT 30"
+                ):
+                    item = json.loads(row[2])
+                    analyses.append({"id": row[0], "created_at": row[1],
+                                     "status": item["status"], "filters": item["filters"],
+                                     "count": len(item["cases"])})
+            finally:
+                db.close()
+        return templates.TemplateResponse(request, "history.html", {"analyses": analyses})
+
+    @app.get("/help")
+    def help_page(request: Request):
+        return templates.TemplateResponse(request, "help.html", {})
+
     return app
+
+
+app = create_app(Path(os.environ.get("DEMO_DB_PATH", "dane/demo.sqlite")))

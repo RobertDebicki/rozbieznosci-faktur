@@ -12,6 +12,7 @@ Etap 2: deterministyczny detektor porównujący faktury netto z wyceną transzy.
 Etap 3: indeks FTS5 i wyszukiwanie semantyczne we fragmentach źródeł.
 Etap 4: wyjaśniacz z walidacją kwoty, cytatu i przyczyny; jawny tryb demo.
 Etap 5: interpretacja typowych pytań księgowych i API zapisujące analizy.
+Etap 6: responsywny interfejs od pytania przez wynik do cytatu źródłowego.
 Szczegóły i pliki są w `.Codex/AGENTS.md`.
 
 ## Architektura
@@ -21,7 +22,7 @@ Zatwierdzona architektura i przepływy użytkownika są w `.Codex/architecture.m
 Zatwierdzony mockup i tokeny CSS są w `.Codex/design-system.md`.
 
 ## Plan budowy
-Plan zatwierdzony. Etapy 1–5 wykonane; następny jest interfejs przeglądarkowy.
+Plan zatwierdzony. Etapy 1–6 wykonane; następne są pytania uzupełniające.
 
 ## Wazne decyzje
 

@@ -33,4 +33,4 @@ dev = [
 packages = ["rozbieznosci", "skrypty"]
 
 [tool.setuptools.package-data]
-rozbieznosci = ["schema.sql"]
+rozbieznosci = ["schema.sql", "templates/*.html", "static/*.css", "static/*.js"]

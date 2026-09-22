@@ -44,7 +44,8 @@ Etap 2: deterministyczny detektor rozbieżności — wykonany.
 Etap 3: indeks dokumentów i wyszukiwanie dowodów — wykonany.
 Etap 4: wyjaśniacz z kontrolą dowodów i jawną symulacją — wykonany.
 Etap 5: interpretacja pytań i API analizy — wykonany.
-Następny jest etap 6: interfejs od pytania do dowodu.
+Etap 6: interfejs od pytania do dowodu — wykonany.
+Następny jest etap 7: pytania uzupełniające i historia odpowiedzi.
 
 ---
 

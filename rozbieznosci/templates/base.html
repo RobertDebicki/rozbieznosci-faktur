@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="pl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#F6F4EF">
+  <title>{% block title %}Rozbieżności faktur{% endblock %}</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/static/app.css">
+  <script src="/static/app.js" defer></script>
+</head>
+<body>
+  <header class="site-header">
+    <div class="header-inner">
+      <a class="brand" href="/" aria-label="Rozbieżności faktur — strona główna"><span class="brand-mark">R</span><span>Rozbieżności faktur</span></a>
+      <nav aria-label="Nawigacja główna">
+        <a href="/">Nowa analiza</a>
+        <a href="/history">Historia</a>
+        <a href="/help">Pomoc</a>
+      </nav>
+      <span class="demo-badge">Demo · dane syntetyczne</span>
+    </div>
+  </header>
+  <main id="main-content">{% block content %}{% endblock %}</main>
+  <footer class="site-footer">Demonstracja na danych syntetycznych · Kwoty netto · Źródła lokalne</footer>
+</body>
+</html>

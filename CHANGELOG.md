@@ -7,6 +7,21 @@ Zapis zmian w projekcie — najnowsze wpisy na górze.
 ## 2026-09-22 — Robert Dębicki
 
 **✅ Zrobione:**
+- Dodano responsywny interfejs od pytania przez wynik do cytatu źródłowego.
+- Dodano stany braku faktur i braku rozbieżności, historię analiz i pomoc.
+- Sprawdzono główną ścieżkę oraz widok mobilny w przeglądarce.
+
+**🚧 W toku / nie wdrożone:**
+- Pytania uzupełniające i końcowy raport ewaluacyjny.
+
+**🎯 Następny krok:**
+- Dodać odpowiedzi na pytania o gotową analizę.
+
+---
+
+## 2026-09-22 — Robert Dębicki
+
+**✅ Zrobione:**
 - Dodano interpretację prostych pytań o klienta, okres i próg rozbieżności.
 - Dodano API tworzenia i odczytu analiz oraz spraw z zapisanymi wynikami.
 - Rozróżniono brak faktur, brak rozbieżności i sprawy wymagające przeglądu.

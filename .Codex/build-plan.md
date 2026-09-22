@@ -134,7 +134,7 @@ o podobnej nazwie, nieznany klient, odwrócony zakres dat, próg 10%, brak
 faktur, brak różnic, pytanie spoza zakresu. Uruchomić wskazane dwa pliki
 testowe przed i po kodzie, potem sprawdzić ręcznie kilka żądań HTTP.
 
-## Etap 6 — Interfejs od pytania do dowodu
+## Etap 6 — Interfejs od pytania do dowodu ✅
 
 **Wynik:** pełna główna ścieżka w przeglądarce odpowiada mockupowi:
 start → ewentualny wybór klienta → postęp → wyniki → szczegół → źródło.

@@ -85,12 +85,26 @@ Kryteria sukcesu i zakres są w `.claude/project-state.md`.
   `rozbieznosci/schema.sql`; testy w `testy/test_pytanie.py` i
   `testy/test_api.py`.
 
+### Interfejs przeglądarkowy
+
+- Strona `/` oferuje pytanie naturalnym językiem, gotowe przykłady i formularz
+  okresu oraz klienta. Doprecyzowanie klienta pokazuje opcje bez zgadywania.
+- `/analyses/{id}` pokazuje zrozumiane filtry, liczby, stany puste i listę
+  spraw; `/analyses/{id}/cases/{case_id}` pokazuje wyliczenie, wyjaśnienie
+  i potwierdzone źródła. Podgląd pobiera fragment tylko z bieżącej sprawy.
+- `/history` otwiera zapisane analizy, `/help` wyjaśnia sposób użycia.
+  Widoki są responsywne i mają tekstowe statusy, etykiety pól oraz natywny
+  dialog źródła. Bez klucza API używają jawnej symulacji.
+- Pliki: `rozbieznosci/app.py`, `rozbieznosci/templates/`,
+  `rozbieznosci/static/`; testy w `testy/test_widoki.py`.
+
 ## Architektura
 
 Pełny opis w `.Codex/architecture.md`. Detektor kwot jest deterministyczny;
 wyjaśniacz ocenia źródła, ale dopuszcza tylko zweryfikowane cytaty. Projekt
 jest jednym lokalnym serwisem z bazą SQLite. Obecnie działają generator
-danych, detektor, indeks, wyjaśniacz i API; UI jest następnym etapem.
+danych, detektor, indeks, wyjaśniacz, API i UI. Następne są pytania
+uzupełniające oraz końcowa ewaluacja.
 
 ## Design system
 
@@ -99,8 +113,8 @@ HTML jest prototypem wizualnym z odpowiedziami na sztywno, nie logiką aplikacji
 
 ## Plan budowy
 
-Plan w `.Codex/build-plan.md` został zatwierdzony. Etapy 1–5 wykonane.
-Następny etap: interfejs od pytania do dowodu.
+Plan w `.Codex/build-plan.md` został zatwierdzony. Etapy 1–6 wykonane.
+Następny etap: pytania uzupełniające i historia odpowiedzi.
 
 ## Ważne decyzje
 
