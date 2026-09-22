@@ -100,10 +100,18 @@ def seed_demo(
             (second_tranche_id, case_id, baseline, "Zamknięcie etapu"),
         )
 
+        document_index = 0
+
         def add_document(kind: str, title: str, body: str, available: bool = True) -> int:
-            filename = f"{project_code}-{kind}-{len(list(corpus.glob(project_code + '-*'))) + 1}.txt"
+            nonlocal document_index
+            document_index += 1
+            filename = f"{project_code}-{kind}-{document_index}.txt"
             path = corpus / filename
-            path.write_text(body, encoding="utf-8")
+            if path.exists():
+                if path.read_text(encoding="utf-8") != body:
+                    raise ValueError("Dokument już istnieje z inną treścią. Wybierz inny katalog korpusu.")
+            else:
+                path.write_text(body, encoding="utf-8")
             cursor = db.execute(
                 "INSERT INTO documents (project_id, kind, title, path, available) "
                 "VALUES (?, ?, ?, ?, ?)",
@@ -156,11 +164,12 @@ def seed_demo(
             )
 
         vat_cents = spec.invoice_cents * 23 // 100
+        retention_cents = spec.invoice_cents // 10 if category == "staged_billing" else 0
         db.execute(
-            "INSERT INTO invoices (id, client_id, project_id, tranche_id, issued_on, number, net_cents, vat_cents) "
-            "VALUES (?, ?, ?, ?, ?, ?, ?, ?)",
-            (case_id, client_id, case_id, first_tranche_id, issue_date, f"FV/2026/{case_id:03d}",
-             spec.invoice_cents, vat_cents),
+            "INSERT INTO invoices (id, client_id, project_id, tranche_id, issued_on, number, net_cents, vat_cents, retention_cents) "
+            "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)",
+            (case_id, client_id, case_id, first_tranche_id, issue_date, f"FV/{issue_date[:4]}/{case_id:03d}",
+             spec.invoice_cents, vat_cents, retention_cents),
         )
         db.execute(
             "INSERT INTO invoice_items (invoice_id, description, net_cents, vat_cents) "

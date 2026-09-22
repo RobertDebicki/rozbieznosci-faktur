@@ -39,7 +39,15 @@ komponenty i obsługa błędów są w `../.Codex/architecture.md`.
 
 ## Faza 4 — Plan budowy  ✅ UKOŃCZONA
 Plan w `../.Codex/build-plan.md` został zatwierdzony przez użytkownika.
-Etap 1: generator danych i zestaw ewaluacyjny. Etap 2: detektor rozbieżności.
+Etap 1: generator danych i zestaw ewaluacyjny — wykonany.
+Etap 2: deterministyczny detektor rozbieżności — wykonany.
+Etap 3: indeks dokumentów i wyszukiwanie dowodów — wykonany.
+Etap 4: wyjaśniacz z kontrolą dowodów i jawną symulacją — wykonany.
+Etap 5: interpretacja pytań i API analizy — wykonany.
+Etap 6: interfejs od pytania do dowodu — wykonany.
+Etap 7: pytania uzupełniające i historia odpowiedzi — wykonany.
+Etap 8: ewaluacja, dokumentacja i demonstracja — wykonany.
+Wersja demonstracyjna jest gotowa do lokalnego uruchomienia.
 
 ---
 

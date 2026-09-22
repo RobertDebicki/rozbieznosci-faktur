@@ -8,6 +8,13 @@ proste pytanie o klienta i okres oraz pytania uzupełniające o wynik.
 
 ## Zaimplementowane funkcje
 Etap 1: generator syntetycznej bazy, dokumentów i 30 spraw ewaluacyjnych.
+Etap 2: deterministyczny detektor porównujący faktury netto z wyceną transzy.
+Etap 3: indeks FTS5 i wyszukiwanie semantyczne we fragmentach źródeł.
+Etap 4: wyjaśniacz z walidacją kwoty, cytatu i przyczyny; jawny tryb demo.
+Etap 5: interpretacja typowych pytań księgowych i API zapisujące analizy.
+Etap 6: responsywny interfejs od pytania przez wynik do cytatu źródłowego.
+Etap 7: pytania uzupełniające o zapisany wynik i historia odpowiedzi.
+Etap 8: ewaluacja 30 spraw, raport JSON i instrukcja uruchomienia demo.
 Szczegóły i pliki są w `.Codex/AGENTS.md`.
 
 ## Architektura
@@ -17,7 +24,7 @@ Zatwierdzona architektura i przepływy użytkownika są w `.Codex/architecture.m
 Zatwierdzony mockup i tokeny CSS są w `.Codex/design-system.md`.
 
 ## Plan budowy
-Plan zatwierdzony. Etap 1 wykonany, następny jest detektor rozbieżności.
+Plan zatwierdzony. Etapy 1–8 wykonane; demonstracja lokalna jest gotowa.
 
 ## Wazne decyzje
 

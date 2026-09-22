@@ -51,7 +51,7 @@ utraty groszy. Uruchomić `pytest testy/test_dane.py -q`, zobaczyć błąd,
 wdrożyć minimum i uruchomić ponownie. Na końcu `python -m skrypty.generuj_dane`
 i sprawdzenie liczby spraw ewaluacyjnych.
 
-## Etap 2 — Detektor rozbieżności
+## Etap 2 — Detektor rozbieżności ✅
 
 **Wynik:** polecenie demonstracyjne zwraca listę policzonych spraw bez LLM.
 Faktura częściowa dla otwartego etapu nie staje się alarmem przez porównanie
@@ -71,7 +71,7 @@ faktura poza filtrem dat uwzględniona narastająco, VAT i kaucja poza netto.
 Uruchomić `pytest testy/test_detektor.py -q` przed i po wdrożeniu. Sprawdzić
 wynik `python -m skrypty.sprawdz --last-months 12` na syntetycznej bazie.
 
-## Etap 3 — Indeks i wyszukiwanie dowodów
+## Etap 3 — Indeks i wyszukiwanie dowodów ✅
 
 **Wynik:** zapytanie o projekt, numer aneksu, kwotę lub opis prac zwraca
 fragmenty z identyfikatorem i lokalizatorem. Indeksowanie odbywa się wsadowo.
@@ -92,7 +92,7 @@ nieczytelny dokument jest oznaczony jako niedostępny. Uruchomić
 `pytest testy/test_szukaj.py -q` przed i po wdrożeniu oraz `python -m
 skrypty.indeksuj` na danych demo.
 
-## Etap 4 — Wyjaśniacz z kontrolą dowodów
+## Etap 4 — Wyjaśniacz z kontrolą dowodów ✅
 
 **Wynik:** różnica otrzymuje jedną z uzgodnionych przyczyn tylko wtedy, gdy
 walidator potwierdzi istniejący cytat. Bez dowodu status to `unknown`.
@@ -114,7 +114,7 @@ podstawionego dostawcy, bez sieci. Uruchomić `pytest testy/test_wyjasnij.py
 -q` przed i po wdrożeniu. Jedno rzeczywiste wywołanie API wykonać dopiero
 po podaniu klucza w środowisku; brak klucza ma czytelny status w aplikacji.
 
-## Etap 5 — Interpretacja pytań i API analizy
+## Etap 5 — Interpretacja pytań i API analizy ✅
 
 **Wynik:** użytkownik może podać klienta, datę i próg zwykłym językiem
 albo formularzem. Wynik API zwraca zrozumiane filtry, sprawy i statusy.
@@ -134,7 +134,7 @@ o podobnej nazwie, nieznany klient, odwrócony zakres dat, próg 10%, brak
 faktur, brak różnic, pytanie spoza zakresu. Uruchomić wskazane dwa pliki
 testowe przed i po kodzie, potem sprawdzić ręcznie kilka żądań HTTP.
 
-## Etap 6 — Interfejs od pytania do dowodu
+## Etap 6 — Interfejs od pytania do dowodu ✅
 
 **Wynik:** pełna główna ścieżka w przeglądarce odpowiada mockupowi:
 start → ewentualny wybór klienta → postęp → wyniki → szczegół → źródło.
@@ -155,7 +155,7 @@ nie jest podpisany jako brak rozbieżności, niedostępne źródło nie ma aktyw
 `pytest testy/test_widoki.py -q`, następnie ręcznie przejść główną ścieżkę
 na szerokim i wąskim ekranie. W CSS przenieść tokeny z `design-system.md`.
 
-## Etap 7 — Pytania uzupełniające i historia
+## Etap 7 — Pytania uzupełniające i historia ✅
 
 **Wynik:** użytkownik pyta o wynik lub sprawę; odpowiedź odnosi się do
 aktualnej analizy i wskazuje źródła. Historia otwiera zapisane analizy.
@@ -173,7 +173,7 @@ odsyła do nowej analizy, niedostępny model daje czytelny brak odpowiedzi,
 historia przywraca filtry i wynik. Uruchomić `pytest testy/test_dopytaj.py -q`
 przed i po wdrożeniu oraz ręcznie zadać pytanie z mockupu.
 
-## Etap 8 — Ewaluacja, dokumentacja i demonstracja
+## Etap 8 — Ewaluacja, dokumentacja i demonstracja ✅
 
 **Wynik:** odtwarzalny raport z 30 sprawami, trafnością wyjaśnień, liczbą
 fikcyjnych źródeł, odsetkiem `unknown`, czasem oraz użyciem i kosztem modelu.

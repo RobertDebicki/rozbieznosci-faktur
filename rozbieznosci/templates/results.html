@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% block title %}Wyniki analizy · Rozbieżności faktur{% endblock %}
+{% block content %}
+<div class="content-layout">
+  <div class="page-top"><div><p class="eyebrow">Analiza nr {{ analysis.id }}</p><h1>Podsumowanie</h1></div><a class="button button-outline" href="/">Zmień warunki</a></div>
+  <section class="understood" aria-label="Zrozumiane filtry"><p>Tak zrozumieliśmy Twoje pytanie</p><div class="chips"><span class="filter-chip">Klient: <strong>{% if analysis.filters.client_id %}Firma Demo {{ '%02d' % analysis.filters.client_id }}{% else %}wszyscy{% endif %}</strong></span><span class="filter-chip">Okres: <strong>{{ analysis.filters.date_from }} – {{ analysis.filters.date_to }}</strong></span><span class="filter-chip">Porównanie: <strong>faktury ↔ wyceny</strong></span></div></section>
+  {% if analysis.status == 'no_invoices' %}
+    <section class="empty-state card"><span class="empty-icon" aria-hidden="true">□</span><h2>Nie znaleziono faktur do porównania</h2><p>W wybranym okresie nie ma faktur spełniających warunki. To nie oznacza, że kwoty się zgadzają — nie ma czego porównać.</p><a href="/" class="button button-primary">Zmień okres lub klienta</a></section>
+  {% elif analysis.status == 'no_discrepancies' %}
+    <section class="empty-state card"><span class="empty-icon success" aria-hidden="true">✓</span><h2>Nie znaleziono rozbieżności</h2><p>Sprawdziliśmy faktury w wybranym zakresie. Ich kwoty zgadzają się z wycenami transz lub nie przekraczają ustawionego progu.</p><a href="/" class="button button-outline">Nowa analiza</a></section>
+  {% else %}
+    {% set differences = analysis.cases | selectattr('status', 'equalto', 'difference') | list %}
+    {% set explained = differences | selectattr('explanation.cause', 'ne', 'unknown') | list %}
+    <p class="results-lead">Sprawdziliśmy <strong>{{ analysis.cases | length }}</strong> faktur. Znaleźliśmy <strong>{{ differences | length }}</strong> rozbieżności; dla <strong>{{ explained | length }}</strong> mamy potwierdzoną przyczynę.</p>
+    <div class="stats"><div class="stat card"><span>Sprawdzone faktury</span><strong>{{ analysis.cases | length }}</strong></div><div class="stat card"><span>Rozbieżności</span><strong>{{ differences | length }}</strong></div><div class="stat card"><span>Z dowodem</span><strong>{{ explained | length }}</strong></div></div>
+    <div class="list-heading"><div><p class="eyebrow">Wyniki</p><h2>Sprawy do przejrzenia</h2></div><div class="segmented" role="group" aria-label="Filtr statusu"><button type="button" data-filter="all" aria-pressed="true">Wszystkie</button><button type="button" data-filter="difference" aria-pressed="false">Rozbieżności</button><button type="button" data-filter="equal" aria-pressed="false">Zgodne</button></div></div>
+    <div class="case-list">
+      {% for case in analysis.cases %}
+      <a class="case-row card" data-status="{{ case.status }}" href="/analyses/{{ analysis.id }}/cases/{{ case.invoice_id }}">
+        <div class="case-ident"><span class="case-code">{{ case.invoice_number }}</span><strong>Projekt demonstracyjny {{ '%02d' % case.project_id }}</strong><span>Firma Demo {{ '%02d' % case.client_id }} · {{ case.issued_on }}</span></div>
+        <div class="case-amount"><span>Różnica netto</span><strong>{{ case.difference_cents | pln }}</strong></div>
+        <span class="status-pill {% if case.status == 'equal' %}status-equal{% elif case.explanation.cause == 'unknown' %}status-unknown{% else %}status-explained{% endif %}">{% if case.status == 'equal' %}Zgodne{% elif case.status == 'not_comparable' %}Do sprawdzenia{% elif case.explanation.cause == 'unknown' %}Przyczyna nieustalona{% else %}Wyjaśnione{% endif %}</span><span class="row-arrow" aria-hidden="true">→</span>
+      </a>
+      {% endfor %}
+    </div>
+  {% endif %}
+  <section class="card followup-card" aria-labelledby="followup-title"><p class="eyebrow">Dopytaj o wynik</p><h2 id="followup-title">Masz pytanie do tej analizy?</h2><p>Odpowiemy na podstawie zapisanych kwot i tych samych źródeł.</p><div class="chips"><button type="button" class="chip" data-followup-example="Która rozbieżność jest największa?">Która różnica jest największa?</button><button type="button" class="chip" data-followup-example="Ile jest rozbieżności?">Ile jest rozbieżności?</button></div><form class="followup-form" data-analysis-id="{{ analysis.id }}"><label for="followup-question">Twoje pytanie</label><div class="followup-controls"><input id="followup-question" name="question" type="text" placeholder="Np. Która rozbieżność jest największa?" required maxlength="500"><button type="submit" class="button button-primary">Zapytaj</button></div></form><div class="followup-feedback" role="status" aria-live="polite"></div><div class="followup-answers">{% for item in followups %}<article class="followup-answer"><span>Twoje pytanie</span><strong>{{ item.question }}</strong><p>{{ item.text }}</p>{% if item.case_id %}<a href="/analyses/{{ analysis.id }}/cases/{{ item.case_id }}">Otwórz sprawę →</a>{% endif %}</article>{% endfor %}</div></section>
+</div>
+{% endblock %}

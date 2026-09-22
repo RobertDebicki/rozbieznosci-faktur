@@ -55,6 +55,19 @@ CREATE TABLE IF NOT EXISTS documents (
 );
 CREATE INDEX IF NOT EXISTS idx_documents_project ON documents(project_id);
 
+CREATE TABLE IF NOT EXISTS document_chunks (
+    id INTEGER PRIMARY KEY,
+    document_id INTEGER NOT NULL REFERENCES documents(id) ON DELETE CASCADE,
+    locator TEXT NOT NULL,
+    text TEXT NOT NULL,
+    embedding_json TEXT,
+    UNIQUE (document_id, locator)
+);
+CREATE INDEX IF NOT EXISTS idx_document_chunks_document ON document_chunks(document_id);
+CREATE VIRTUAL TABLE IF NOT EXISTS document_fts USING fts5(
+    chunk_id UNINDEXED, text, tokenize = 'unicode61 remove_diacritics 2'
+);
+
 CREATE TABLE IF NOT EXISTS changes (
     id INTEGER PRIMARY KEY,
     stage_id INTEGER NOT NULL REFERENCES stages(id) ON DELETE RESTRICT,
@@ -77,11 +90,13 @@ CREATE TABLE IF NOT EXISTS invoices (
     id INTEGER PRIMARY KEY,
     client_id INTEGER NOT NULL REFERENCES clients(id) ON DELETE RESTRICT,
     project_id INTEGER NOT NULL REFERENCES projects(id) ON DELETE RESTRICT,
-    tranche_id INTEGER NOT NULL REFERENCES tranches(id) ON DELETE RESTRICT,
+    tranche_id INTEGER REFERENCES tranches(id) ON DELETE RESTRICT,
     issued_on TEXT NOT NULL CHECK (date(issued_on) IS NOT NULL),
     number TEXT NOT NULL UNIQUE,
     net_cents INTEGER NOT NULL CHECK (typeof(net_cents) = 'integer' AND net_cents >= 0),
-    vat_cents INTEGER NOT NULL CHECK (typeof(vat_cents) = 'integer' AND vat_cents >= 0)
+    vat_cents INTEGER NOT NULL CHECK (typeof(vat_cents) = 'integer' AND vat_cents >= 0),
+    retention_cents INTEGER NOT NULL DEFAULT 0
+        CHECK (typeof(retention_cents) = 'integer' AND retention_cents >= 0 AND retention_cents <= net_cents)
 );
 CREATE INDEX IF NOT EXISTS idx_invoices_client_date ON invoices(client_id, issued_on);
 CREATE INDEX IF NOT EXISTS idx_invoices_project ON invoices(project_id);
@@ -93,11 +108,13 @@ BEGIN
     SELECT RAISE(ABORT, 'Faktura musi wskazywać klienta i transzę swojego projektu')
     WHERE NOT EXISTS (
         SELECT 1 FROM projects p
-        JOIN stages s ON s.project_id = p.id
-        JOIN tranches t ON t.stage_id = s.id
         WHERE p.id = NEW.project_id
           AND p.client_id = NEW.client_id
-          AND t.id = NEW.tranche_id
+          AND (NEW.tranche_id IS NULL OR EXISTS (
+              SELECT 1 FROM stages s
+              JOIN tranches t ON t.stage_id = s.id
+              WHERE s.project_id = p.id AND t.id = NEW.tranche_id
+          ))
     );
 END;
 
@@ -107,11 +124,13 @@ BEGIN
     SELECT RAISE(ABORT, 'Faktura musi wskazywać klienta i transzę swojego projektu')
     WHERE NOT EXISTS (
         SELECT 1 FROM projects p
-        JOIN stages s ON s.project_id = p.id
-        JOIN tranches t ON t.stage_id = s.id
         WHERE p.id = NEW.project_id
           AND p.client_id = NEW.client_id
-          AND t.id = NEW.tranche_id
+          AND (NEW.tranche_id IS NULL OR EXISTS (
+              SELECT 1 FROM stages s
+              JOIN tranches t ON t.stage_id = s.id
+              WHERE s.project_id = p.id AND t.id = NEW.tranche_id
+          ))
     );
 END;
 
@@ -123,3 +142,19 @@ CREATE TABLE IF NOT EXISTS invoice_items (
     vat_cents INTEGER NOT NULL CHECK (typeof(vat_cents) = 'integer' AND vat_cents >= 0)
 );
 CREATE INDEX IF NOT EXISTS idx_invoice_items_invoice ON invoice_items(invoice_id);
+
+CREATE TABLE IF NOT EXISTS analyses (
+    id INTEGER PRIMARY KEY,
+    created_at TEXT NOT NULL DEFAULT (datetime('now')),
+    result_json TEXT NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS followups (
+    id INTEGER PRIMARY KEY,
+    analysis_id INTEGER NOT NULL REFERENCES analyses(id) ON DELETE CASCADE,
+    case_id INTEGER,
+    question TEXT NOT NULL,
+    answer_json TEXT NOT NULL,
+    created_at TEXT NOT NULL DEFAULT (datetime('now'))
+);
+CREATE INDEX IF NOT EXISTS idx_followups_analysis ON followups(analysis_id, id);

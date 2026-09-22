@@ -2,8 +2,13 @@
 
 Zestaw 30 spraw powstał przed implementacją agenta. Etykiety są w
 `zestaw.jsonl`; pięć spraw ma przyczynę `unknown` i sprawdza, czy agent
-potrafi powiedzieć „nie ustalono”. Wyniki kolejnych przebiegów trafią do
-`wyniki/`.
+potrafi powiedzieć „nie ustalono”. Wynik demonstracyjny jest w
+`wyniki/raport.json`.
+
+Opublikowany raport używa `DemoProvider`, czyli deterministycznej symulacji
+na przygotowanych dokumentach. Nie mierzy skuteczności zewnętrznego LLM.
+Mierzone czasy obejmują samą analizę spraw, bez generowania bazy,
+indeksowania i renderowania strony. Użycie API i koszt wynoszą 0.
 
 ## Co tu ma byc
 

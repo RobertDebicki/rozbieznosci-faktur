@@ -5,11 +5,17 @@ description = "Agent dochodzeniowy: wykrywa rozbieznosci faktura vs wycena i szu
 requires-python = ">=3.11"
 # Dalsze zależności dojdą razem z etapami, które ich używają.
 dependencies = [
+    "fastapi>=0.116,<1",
+    "jinja2>=3.1,<4",
     "python-dotenv>=1.0",
+    "uvicorn>=0.35,<1",
 ]
 
 [project.optional-dependencies]
 dev = ["pytest>=8.0"]
+retrieval = [
+    "sentence-transformers>=5,<6",
+]
 
 [tool.pytest.ini_options]
 testpaths = ["testy"]
@@ -18,8 +24,13 @@ testpaths = ["testy"]
 requires = ["setuptools>=68"]
 build-backend = "setuptools.build_meta"
 
+[dependency-groups]
+dev = [
+    "httpx>=0.28,<1",
+]
+
 [tool.setuptools]
 packages = ["rozbieznosci", "skrypty"]
 
 [tool.setuptools.package-data]
-rozbieznosci = ["schema.sql"]
+rozbieznosci = ["schema.sql", "templates/*.html", "static/*.css", "static/*.js"]

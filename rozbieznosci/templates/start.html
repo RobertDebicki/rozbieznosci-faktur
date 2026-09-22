@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% block title %}Nowa analiza · Rozbieżności faktur{% endblock %}
+{% block content %}
+<div class="start-layout">
+  <section class="hero" aria-labelledby="start-title">
+    <p class="eyebrow">Analiza faktur i kosztorysów</p>
+    <h1 id="start-title">O co chcesz zapytać?</h1>
+    <p class="lead">Napisz zwykłym językiem, czego szukasz. Sprawdzimy faktury, wyceny, aneksy, protokoły i e-maile.</p>
+    <form id="question-form" class="question-card">
+      <label for="question" class="sr-only">Twoje pytanie o rozbieżności faktur</label>
+      <textarea id="question" name="question" rows="3" placeholder="Np. Pokaż rozbieżności z ostatniego roku" required></textarea>
+      <div class="question-actions"><span>Wpisz pytanie tak, jak powiedziałbyś je współpracownikowi.</span><button type="submit" class="button button-primary">Zapytaj <span aria-hidden="true">→</span></button></div>
+    </form>
+    <div class="examples"><p>Przykładowe pytania — kliknij, aby użyć</p><div class="chips">
+      <button type="button" class="chip" data-question="Pokaż rozbieżności z ostatniego roku">Pokaż rozbieżności z ostatniego roku</button>
+      <button type="button" class="chip" data-question="Sprawdź rozbieżności na fakturach klienta Firma Demo 01 z ostatniego pół roku">Sprawdź klienta z ostatniego pół roku</button>
+    </div></div>
+    <div id="analysis-feedback" class="feedback" role="status" aria-live="polite" hidden></div>
+    <div id="clarification" class="clarification" hidden><h2>Potrzebujemy doprecyzowania</h2><p id="clarification-message"></p><div id="clarification-options" class="option-list"></div></div>
+  </section>
+  <div class="or-divider"><span>albo bez pisania</span></div>
+  <section class="card quick-check" aria-labelledby="quick-title">
+    <div><p class="eyebrow">Szybkie sprawdzenie</p><h2 id="quick-title">Sprawdź rozbieżności</h2><p>Porównamy faktury z wycenami w wybranym okresie.</p></div>
+    <form id="filter-form" class="filter-form">
+      <div class="field"><label for="date-from">Data od</label><input id="date-from" name="date_from" type="date" value="{{ date_from }}" required></div>
+      <div class="field"><label for="date-to">Data do</label><input id="date-to" name="date_to" type="date" value="{{ date_to }}" required></div>
+      <div class="field field-client"><label for="client-id">Klient</label><select id="client-id" name="client_id"><option value="">Wszyscy klienci</option>{% for id, name in clients %}<option value="{{ id }}">{{ name }}</option>{% endfor %}</select></div>
+      <button type="submit" class="button button-outline">Sprawdź rozbieżności</button>
+    </form>
+  </section>
+</div>
+{% endblock %}
