@@ -4,6 +4,22 @@ Zapis zmian w projekcie — najnowsze wpisy na górze.
 
 ---
 
+## 2026-09-22 16:09 — Robert Dębicki
+
+**✅ Zrobione:**
+- Dodano raport ewaluacyjny 30 spraw z jawnymi licznikami i mianownikami.
+- Poprawiono odtwarzalność generatora i ochronę istniejącego korpusu.
+- Odtworzono bazę, indeks i raport; wszystkie ustalone progi demonstracji są spełnione.
+
+**🚧 W toku / nie wdrożone:**
+- Integracje z rzeczywistym Google Drive, pocztą i systemem fakturowym są poza zakresem demo.
+- Nie mierzono skuteczności zewnętrznego LLM bez klucza API.
+
+**🎯 Następny krok:**
+- Udostępnić użytkownikowi repozytorium i instrukcję lokalnego uruchomienia.
+
+---
+
 ## 2026-09-22 — Robert Dębicki
 
 **✅ Zrobione:**

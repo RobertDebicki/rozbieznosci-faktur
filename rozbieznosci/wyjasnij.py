@@ -4,7 +4,7 @@ from __future__ import annotations
 
 from dataclasses import dataclass
 
-from .model import LLMProvider
+from .model import LLMProvider, ModelReply
 from .models import Detection
 from .szukaj import EvidenceChunk
 
@@ -66,11 +66,14 @@ def _pln(cents: int | None) -> str:
     return f"{sign}{absolute // 100:,}".replace(",", " ") + f",{absolute % 100:02d} zł"
 
 
-def _unknown(detection: Detection, reason: str) -> Explanation:
+def _unknown(detection: Detection, reason: str, reply: ModelReply | None = None) -> Explanation:
     return Explanation(
         "unknown", (), (),
         f"Różnica {_pln(detection.raw_difference_cents)}. Przyczyna nieustalona. {reason}",
         reason, detection.raw_difference_cents,
+        reply.input_tokens if reply else 0,
+        reply.output_tokens if reply else 0,
+        reply.elapsed_ms if reply else 0,
     )
 
 
@@ -111,31 +114,32 @@ def explain(
             ),
         },
     ]
+    reply: ModelReply | None = None
     try:
         reply = provider.complete_json(messages, EXPLANATION_SCHEMA)
         data = reply.data
         cause = data.get("cause")
         if cause == "unknown":
-            return _unknown(detection, "Źródła nie potwierdzają jednoznacznej przyczyny.")
+            return _unknown(detection, "Źródła nie potwierdzają jednoznacznej przyczyny.", reply)
         if cause not in CAUSES or type(data.get("difference_cents")) is not int:
-            return _unknown(detection, "Odpowiedź modelu nie przeszła walidacji.")
+            return _unknown(detection, "Odpowiedź modelu nie przeszła walidacji.", reply)
         if data["difference_cents"] != detection.raw_difference_cents:
-            return _unknown(detection, "Kwota w odpowiedzi modelu różni się od obliczonej.")
+            return _unknown(detection, "Kwota w odpowiedzi modelu różni się od obliczonej.", reply)
         evidence = data.get("evidence")
         if not isinstance(evidence, list) or not evidence:
-            return _unknown(detection, "Brak cytatu potwierdzającego przyczynę.")
+            return _unknown(detection, "Brak cytatu potwierdzającego przyczynę.", reply)
         by_id = {chunk.chunk_id: chunk for chunk in chunks}
         ids: list[int] = []
         quotes: list[str] = []
         for item in evidence:
             if not isinstance(item, dict) or type(item.get("chunk_id")) is not int:
-                return _unknown(detection, "Nieprawidłowy identyfikator źródła.")
+                return _unknown(detection, "Nieprawidłowy identyfikator źródła.", reply)
             chunk = by_id.get(item["chunk_id"])
             quote = item.get("quote")
             if chunk is None or not isinstance(quote, str) or not quote.strip() or quote not in chunk.text:
-                return _unknown(detection, "Cytat nie występuje we wskazanym źródle.")
+                return _unknown(detection, "Cytat nie występuje we wskazanym źródle.", reply)
             if not any(signal in quote.casefold() for signal in CAUSE_SIGNALS[cause]):
-                return _unknown(detection, "Cytat nie potwierdza wskazanej przyczyny.")
+                return _unknown(detection, "Cytat nie potwierdza wskazanej przyczyny.", reply)
             ids.append(chunk.chunk_id)
             quotes.append(quote)
         return Explanation(
@@ -146,4 +150,4 @@ def explain(
             reply.input_tokens, reply.output_tokens, reply.elapsed_ms,
         )
     except Exception:
-        return _unknown(detection, "Model jest chwilowo niedostępny lub zwrócił błędną odpowiedź.")
+        return _unknown(detection, "Model jest chwilowo niedostępny lub zwrócił błędną odpowiedź.", reply)

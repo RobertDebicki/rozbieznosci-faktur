@@ -21,7 +21,7 @@ from .dopytaj import answer_followup
 from .model import DemoProvider, LLMProvider
 from .models import Client
 from .pytanie import AnalysisRequest, Clarification, months_before, parse_request
-from .szukaj import retrieve
+from .szukaj import EVIDENCE_QUERY, retrieve
 from .wyjasnij import explain
 from .wyjasnij import _pln
 
@@ -113,8 +113,7 @@ def create_app(
                     "SELECT number FROM invoices WHERE id = ?", (detection.invoice_id,)
                 ).fetchone()[0]
                 chunks = retrieve(
-                    db, detection.project_id,
-                    "aneks rabat prace dodatkowe omyłkowo zmiana zakresu", limit=8,
+                    db, detection.project_id, EVIDENCE_QUERY, limit=8,
                 ) if detection.status == "difference" else []
                 explanation = explain(detection, chunks, explanation_provider)
                 cases.append({

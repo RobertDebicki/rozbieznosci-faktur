@@ -112,13 +112,27 @@ Kryteria sukcesu i zakres są w `.claude/project-state.md`.
   `rozbieznosci/schema.sql`, szablony i `static/app.js`;
   testy w `testy/test_dopytaj.py`.
 
+### Ewaluacja demonstracji
+
+- `python -m skrypty.ewaluuj` mierzy 30 spraw z `ewaluacja/zestaw.jsonl`.
+  Raport w `ewaluacja/wyniki/raport.json` oddziela poprawność kwot,
+  wyjaśnienia z dowodem, sprawy bez dowodu, fakturowanie etapowe,
+  fikcyjne źródła, trafienia wyszukiwania, czas i użycie modelu.
+- Opublikowany wynik dotyczy `DemoProvider`, czyli jawnej symulacji.
+  Nie jest miarą skuteczności zewnętrznego modelu językowego. Czas obejmuje
+  analizę spraw, bez generowania bazy, indeksowania i interfejsu.
+- Generator używa stałych nazw dokumentów i odmawia nadpisania korpusu
+  różnymi danymi. Test odtwarzalności jest w `testy/test_dane.py`.
+- Pliki: `skrypty/ewaluuj.py`, `rozbieznosci/pomiary.py`,
+  `ewaluacja/wyniki/raport.json`; testy w `testy/test_ewaluacja.py`.
+
 ## Architektura
 
 Pełny opis w `.Codex/architecture.md`. Detektor kwot jest deterministyczny;
 wyjaśniacz ocenia źródła, ale dopuszcza tylko zweryfikowane cytaty. Projekt
 jest jednym lokalnym serwisem z bazą SQLite. Obecnie działają generator
 danych, detektor, indeks, wyjaśniacz, API, UI i pytania uzupełniające.
-Następna jest końcowa ewaluacja.
+Końcowy raport demonstracyjny jest dostępny w `ewaluacja/wyniki/raport.json`.
 
 ## Design system
 
@@ -127,8 +141,8 @@ HTML jest prototypem wizualnym z odpowiedziami na sztywno, nie logiką aplikacji
 
 ## Plan budowy
 
-Plan w `.Codex/build-plan.md` został zatwierdzony. Etapy 1–7 wykonane.
-Następny etap: ewaluacja, dokumentacja i demonstracja.
+Plan w `.Codex/build-plan.md` został zatwierdzony. Etapy 1–8 wykonane.
+Wersja demonstracyjna jest gotowa do lokalnego uruchomienia.
 
 ## Ważne decyzje
 
@@ -144,5 +158,7 @@ Następny etap: ewaluacja, dokumentacja i demonstracja.
   Żadne rzeczywiste dane klienta nie są wysyłane do modelu.
 - Baza demo (`dane/*.sqlite`) jest generowana lokalnie i ignorowana przez git;
   tekstowe źródła i etykiety ewaluacyjne mogą być publiczne.
+- Wyniki 100% w raporcie są wynikiem na syntetycznym, przygotowanym zestawie
+  i jawnej symulacji. Skuteczność zewnętrznego LLM nie była tu mierzona.
 - Python 3.12.13 zapewnia `uv` w lokalnym `.venv`; nie trzeba instalować
   Pythona systemowo.

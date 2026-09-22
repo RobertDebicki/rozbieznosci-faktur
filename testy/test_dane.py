@@ -127,6 +127,30 @@ def test_invoice_number_uses_its_issue_year(tmp_path: Path) -> None:
         assert all(number.split("/")[1] == issued_on[:4] for number, issued_on in rows)
 
 
+def test_generator_reuses_deterministic_document_names_in_existing_corpus(tmp_path: Path) -> None:
+    """Nowa baza w tym samym katalogu nie może dodawać kopii dokumentów."""
+    corpus = tmp_path / "docs"
+    with open_db(tmp_path / "first.sqlite") as first:
+        seed_demo(first, corpus_dir=corpus, as_of=date(2026, 9, 22))
+        first_paths = [row[0] for row in first.execute("SELECT path FROM documents ORDER BY id")]
+    with open_db(tmp_path / "second.sqlite") as second:
+        seed_demo(second, corpus_dir=corpus, as_of=date(2026, 9, 22))
+        second_paths = [row[0] for row in second.execute("SELECT path FROM documents ORDER BY id")]
+    assert second_paths == first_paths
+    assert len(list(corpus.glob("*.txt"))) == len(first_paths)
+
+
+def test_generator_does_not_overwrite_existing_corpus_with_different_seed(tmp_path: Path) -> None:
+    corpus = tmp_path / "docs"
+    with open_db(tmp_path / "first.sqlite") as first:
+        seed_demo(first, seed=2026, corpus_dir=corpus, as_of=date(2026, 9, 22))
+    existing = {path.name: path.read_text(encoding="utf-8") for path in corpus.glob("*.txt")}
+    with open_db(tmp_path / "second.sqlite") as second:
+        with pytest.raises(ValueError, match="inny katalog"):
+            seed_demo(second, seed=9999, corpus_dir=corpus, as_of=date(2026, 9, 22))
+    assert existing == {path.name: path.read_text(encoding="utf-8") for path in corpus.glob("*.txt")}
+
+
 def test_cli_writes_evaluation_set_with_unknown_cases(tmp_path: Path) -> None:
     """Ewaluacja musi mieć 30 etykiet, w tym 5 spraw bez dowodu."""
     db_path = tmp_path / "demo.sqlite"

@@ -1,0 +1,328 @@
+{
+  "mode": "demo_simulation",
+  "cases_total": 30,
+  "amounts": {
+    "correct": 30,
+    "total": 30,
+    "accuracy_pct": 100.0
+  },
+  "with_evidence": {
+    "correct_explanations": 20,
+    "total": 20,
+    "accuracy_pct": 100.0,
+    "retrieval_hits": 20,
+    "retrieval_recall_pct": 100.0
+  },
+  "without_evidence": {
+    "correct_unknown": 5,
+    "total": 5,
+    "accuracy_pct": 100.0
+  },
+  "staged_billing": {
+    "correctly_not_flagged": 5,
+    "total": 5,
+    "accuracy_pct": 100.0
+  },
+  "fictitious_sources": 0,
+  "latency_ms": {
+    "total": 5.12,
+    "p50": 0.12,
+    "p95": 0.24,
+    "scope": "Czas samej analizy spraw; bez generowania bazy, indeksowania i renderowania UI"
+  },
+  "model_usage": {
+    "input_tokens": 0,
+    "output_tokens": 0,
+    "estimated_cost_usd": 0.0,
+    "cost_note": "Symulacja bez zewnętrznego API"
+  },
+  "targets_met": {
+    "all_amounts_correct": true,
+    "no_fictitious_sources": true,
+    "at_least_90_pct_explanations_with_evidence": true,
+    "at_least_5_unknown_cases_correct": true,
+    "no_false_staged_alarms": true
+  },
+  "cases": [
+    {
+      "case_id": "DEMO-001",
+      "expected_cause": "none",
+      "predicted_cause": "staged_billing",
+      "amount_correct": true,
+      "evidence_ids": [],
+      "duration_ms": 0.01
+    },
+    {
+      "case_id": "DEMO-002",
+      "expected_cause": "approved_change",
+      "predicted_cause": "approved_change",
+      "amount_correct": true,
+      "evidence_ids": [
+        5
+      ],
+      "duration_ms": 1.89
+    },
+    {
+      "case_id": "DEMO-003",
+      "expected_cause": "discount",
+      "predicted_cause": "discount",
+      "amount_correct": true,
+      "evidence_ids": [
+        8
+      ],
+      "duration_ms": 0.24
+    },
+    {
+      "case_id": "DEMO-004",
+      "expected_cause": "extra_work",
+      "predicted_cause": "extra_work",
+      "amount_correct": true,
+      "evidence_ids": [
+        11
+      ],
+      "duration_ms": 0.24
+    },
+    {
+      "case_id": "DEMO-005",
+      "expected_cause": "invoice_or_estimate_error",
+      "predicted_cause": "invoice_or_estimate_error",
+      "amount_correct": true,
+      "evidence_ids": [
+        14
+      ],
+      "duration_ms": 0.19
+    },
+    {
+      "case_id": "DEMO-006",
+      "expected_cause": "unknown",
+      "predicted_cause": "unknown",
+      "amount_correct": true,
+      "evidence_ids": [],
+      "duration_ms": 0.11
+    },
+    {
+      "case_id": "DEMO-007",
+      "expected_cause": "none",
+      "predicted_cause": "staged_billing",
+      "amount_correct": true,
+      "evidence_ids": [],
+      "duration_ms": 0.0
+    },
+    {
+      "case_id": "DEMO-008",
+      "expected_cause": "approved_change",
+      "predicted_cause": "approved_change",
+      "amount_correct": true,
+      "evidence_ids": [
+        22
+      ],
+      "duration_ms": 0.14
+    },
+    {
+      "case_id": "DEMO-009",
+      "expected_cause": "discount",
+      "predicted_cause": "discount",
+      "amount_correct": true,
+      "evidence_ids": [
+        25
+      ],
+      "duration_ms": 0.14
+    },
+    {
+      "case_id": "DEMO-010",
+      "expected_cause": "extra_work",
+      "predicted_cause": "extra_work",
+      "amount_correct": true,
+      "evidence_ids": [
+        28
+      ],
+      "duration_ms": 0.13
+    },
+    {
+      "case_id": "DEMO-011",
+      "expected_cause": "invoice_or_estimate_error",
+      "predicted_cause": "invoice_or_estimate_error",
+      "amount_correct": true,
+      "evidence_ids": [
+        31
+      ],
+      "duration_ms": 0.22
+    },
+    {
+      "case_id": "DEMO-012",
+      "expected_cause": "unknown",
+      "predicted_cause": "unknown",
+      "amount_correct": true,
+      "evidence_ids": [],
+      "duration_ms": 0.1
+    },
+    {
+      "case_id": "DEMO-013",
+      "expected_cause": "none",
+      "predicted_cause": "staged_billing",
+      "amount_correct": true,
+      "evidence_ids": [],
+      "duration_ms": 0.0
+    },
+    {
+      "case_id": "DEMO-014",
+      "expected_cause": "approved_change",
+      "predicted_cause": "approved_change",
+      "amount_correct": true,
+      "evidence_ids": [
+        39
+      ],
+      "duration_ms": 0.13
+    },
+    {
+      "case_id": "DEMO-015",
+      "expected_cause": "discount",
+      "predicted_cause": "discount",
+      "amount_correct": true,
+      "evidence_ids": [
+        42
+      ],
+      "duration_ms": 0.13
+    },
+    {
+      "case_id": "DEMO-016",
+      "expected_cause": "extra_work",
+      "predicted_cause": "extra_work",
+      "amount_correct": true,
+      "evidence_ids": [
+        45
+      ],
+      "duration_ms": 0.13
+    },
+    {
+      "case_id": "DEMO-017",
+      "expected_cause": "invoice_or_estimate_error",
+      "predicted_cause": "invoice_or_estimate_error",
+      "amount_correct": true,
+      "evidence_ids": [
+        48
+      ],
+      "duration_ms": 0.13
+    },
+    {
+      "case_id": "DEMO-018",
+      "expected_cause": "unknown",
+      "predicted_cause": "unknown",
+      "amount_correct": true,
+      "evidence_ids": [],
+      "duration_ms": 0.08
+    },
+    {
+      "case_id": "DEMO-019",
+      "expected_cause": "none",
+      "predicted_cause": "staged_billing",
+      "amount_correct": true,
+      "evidence_ids": [],
+      "duration_ms": 0.0
+    },
+    {
+      "case_id": "DEMO-020",
+      "expected_cause": "approved_change",
+      "predicted_cause": "approved_change",
+      "amount_correct": true,
+      "evidence_ids": [
+        56
+      ],
+      "duration_ms": 0.12
+    },
+    {
+      "case_id": "DEMO-021",
+      "expected_cause": "discount",
+      "predicted_cause": "discount",
+      "amount_correct": true,
+      "evidence_ids": [
+        59
+      ],
+      "duration_ms": 0.12
+    },
+    {
+      "case_id": "DEMO-022",
+      "expected_cause": "extra_work",
+      "predicted_cause": "extra_work",
+      "amount_correct": true,
+      "evidence_ids": [
+        62
+      ],
+      "duration_ms": 0.12
+    },
+    {
+      "case_id": "DEMO-023",
+      "expected_cause": "invoice_or_estimate_error",
+      "predicted_cause": "invoice_or_estimate_error",
+      "amount_correct": true,
+      "evidence_ids": [
+        65
+      ],
+      "duration_ms": 0.12
+    },
+    {
+      "case_id": "DEMO-024",
+      "expected_cause": "unknown",
+      "predicted_cause": "unknown",
+      "amount_correct": true,
+      "evidence_ids": [],
+      "duration_ms": 0.08
+    },
+    {
+      "case_id": "DEMO-025",
+      "expected_cause": "none",
+      "predicted_cause": "staged_billing",
+      "amount_correct": true,
+      "evidence_ids": [],
+      "duration_ms": 0.0
+    },
+    {
+      "case_id": "DEMO-026",
+      "expected_cause": "approved_change",
+      "predicted_cause": "approved_change",
+      "amount_correct": true,
+      "evidence_ids": [
+        73
+      ],
+      "duration_ms": 0.12
+    },
+    {
+      "case_id": "DEMO-027",
+      "expected_cause": "discount",
+      "predicted_cause": "discount",
+      "amount_correct": true,
+      "evidence_ids": [
+        76
+      ],
+      "duration_ms": 0.11
+    },
+    {
+      "case_id": "DEMO-028",
+      "expected_cause": "extra_work",
+      "predicted_cause": "extra_work",
+      "amount_correct": true,
+      "evidence_ids": [
+        79
+      ],
+      "duration_ms": 0.11
+    },
+    {
+      "case_id": "DEMO-029",
+      "expected_cause": "invoice_or_estimate_error",
+      "predicted_cause": "invoice_or_estimate_error",
+      "amount_correct": true,
+      "evidence_ids": [
+        82
+      ],
+      "duration_ms": 0.12
+    },
+    {
+      "case_id": "DEMO-030",
+      "expected_cause": "unknown",
+      "predicted_cause": "unknown",
+      "amount_correct": true,
+      "evidence_ids": [],
+      "duration_ms": 0.08
+    }
+  ]
+}

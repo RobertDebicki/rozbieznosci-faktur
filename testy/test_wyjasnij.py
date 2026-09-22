@@ -83,6 +83,14 @@ def test_no_evidence_or_provider_error_returns_unknown(detection) -> None:
     assert explain(detection, [], FakeProvider(TimeoutError("timeout"))).reason_unknown
 
 
+def test_unknown_model_reply_still_counts_model_usage(detection, chunks) -> None:
+    payload = valid_payload() | {"cause": "unknown", "evidence": []}
+    result = explain(detection, chunks, FakeProvider(payload))
+    assert result.cause == "unknown"
+    assert result.input_tokens == 100
+    assert result.output_tokens == 30
+
+
 def test_equal_invoice_needs_no_model(detection, chunks) -> None:
     equal = Detection(**(detection.__dict__ | {"raw_difference_cents": 0, "status": "equal"}))
     provider = FakeProvider(valid_payload())

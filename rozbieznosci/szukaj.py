@@ -10,6 +10,8 @@ from dataclasses import dataclass
 
 from .indeks import Embedder, SentenceTransformerEmbedder
 
+EVIDENCE_QUERY = "aneks rabat prace dodatkowe omyłkowo zmiana zakresu"
+
 
 @dataclass(frozen=True)
 class EvidenceChunk:

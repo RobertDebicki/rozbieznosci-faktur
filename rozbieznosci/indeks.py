@@ -34,7 +34,16 @@ class SentenceTransformerEmbedder:
         return SentenceTransformer(MODEL_NAME)
 
     def encode(self, texts: list[str]) -> list[list[float]]:
+        if len(texts) == 1:
+            return [self._encode_one(texts[0])]
         return self.model.encode(texts, normalize_embeddings=True).tolist()
+
+    @staticmethod
+    @lru_cache(maxsize=128)
+    def _encode_one(text: str) -> list[float]:
+        return SentenceTransformerEmbedder._load_model().encode(
+            [text], normalize_embeddings=True
+        ).tolist()[0]
 
 
 def _paragraphs(text: str, max_chars: int = 1200) -> list[str]:

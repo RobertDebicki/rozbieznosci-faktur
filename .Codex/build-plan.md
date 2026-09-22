@@ -173,7 +173,7 @@ odsyła do nowej analizy, niedostępny model daje czytelny brak odpowiedzi,
 historia przywraca filtry i wynik. Uruchomić `pytest testy/test_dopytaj.py -q`
 przed i po wdrożeniu oraz ręcznie zadać pytanie z mockupu.
 
-## Etap 8 — Ewaluacja, dokumentacja i demonstracja
+## Etap 8 — Ewaluacja, dokumentacja i demonstracja ✅
 
 **Wynik:** odtwarzalny raport z 30 sprawami, trafnością wyjaśnień, liczbą
 fikcyjnych źródeł, odsetkiem `unknown`, czasem oraz użyciem i kosztem modelu.
