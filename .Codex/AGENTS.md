@@ -58,12 +58,25 @@ Kryteria sukcesu i zakres są w `.claude/project-state.md`.
   `rozbieznosci/schema.sql`, `skrypty/indeksuj.py`; testy w
   `testy/test_szukaj.py`.
 
+### Wyjaśniacz z kontrolą dowodów
+
+- `explain(detection, chunks, provider)` korzysta z kwoty detektora.
+  Model lub symulacja wybiera przyczynę i cytat; tekst końcowy składa kod.
+- Walidator wymaga znanego identyfikatora fragmentu, dosłownego cytatu,
+  zgodnej kwoty i frazy wspierającej kategorię. Odrzucenie odpowiedzi,
+  brak źródła i błąd dostawcy dają `unknown` z wyjaśnieniem.
+- `DemoProvider` to jawna, deterministyczna symulacja na dokumentach
+  syntetycznych. `GroqProvider` używa `GROQ_API_KEY` ze środowiska;
+  prawdziwego wywołania API nie wykonano bez klucza użytkownika.
+- Pliki: `rozbieznosci/model.py`, `rozbieznosci/wyjasnij.py`;
+  testy w `testy/test_wyjasnij.py`.
+
 ## Architektura
 
 Pełny opis w `.Codex/architecture.md`. Detektor kwot jest deterministyczny;
-agent językowy później oceni dowody dla różnic. Projekt jest jednym lokalnym
-serwisem z bazą SQLite. Obecnie działają generator danych, detektor i indeks;
-wyjaśniacz, API i UI są następnymi etapami.
+wyjaśniacz ocenia źródła, ale dopuszcza tylko zweryfikowane cytaty. Projekt
+jest jednym lokalnym serwisem z bazą SQLite. Obecnie działają generator
+danych, detektor, indeks i wyjaśniacz; API i UI są następnymi etapami.
 
 ## Design system
 
@@ -72,8 +85,8 @@ HTML jest prototypem wizualnym z odpowiedziami na sztywno, nie logiką aplikacji
 
 ## Plan budowy
 
-Plan w `.Codex/build-plan.md` został zatwierdzony. Etapy 1–3 wykonane.
-Następny etap: wyjaśniacz z kontrolą dowodów.
+Plan w `.Codex/build-plan.md` został zatwierdzony. Etapy 1–4 wykonane.
+Następny etap: interpretacja pytań i API analizy.
 
 ## Ważne decyzje
 
@@ -85,6 +98,8 @@ Następny etap: wyjaśniacz z kontrolą dowodów.
   `not_comparable`; nie przypisujemy ich automatycznie.
 - Model embeddingów jest opcjonalną zależnością, więc dokładne frazy działają
   również na komputerze bez pobranego modelu.
+- Symulacja odpowiedzi modelu jest jawnie oddzielona od dostawcy API.
+  Żadne rzeczywiste dane klienta nie są wysyłane do modelu.
 - Baza demo (`dane/*.sqlite`) jest generowana lokalnie i ignorowana przez git;
   tekstowe źródła i etykiety ewaluacyjne mogą być publiczne.
 - Python 3.12.13 zapewnia `uv` w lokalnym `.venv`; nie trzeba instalować

@@ -10,6 +10,7 @@ proste pytanie o klienta i okres oraz pytania uzupełniające o wynik.
 Etap 1: generator syntetycznej bazy, dokumentów i 30 spraw ewaluacyjnych.
 Etap 2: deterministyczny detektor porównujący faktury netto z wyceną transzy.
 Etap 3: indeks FTS5 i wyszukiwanie semantyczne we fragmentach źródeł.
+Etap 4: wyjaśniacz z walidacją kwoty, cytatu i przyczyny; jawny tryb demo.
 Szczegóły i pliki są w `.Codex/AGENTS.md`.
 
 ## Architektura
@@ -19,7 +20,7 @@ Zatwierdzona architektura i przepływy użytkownika są w `.Codex/architecture.m
 Zatwierdzony mockup i tokeny CSS są w `.Codex/design-system.md`.
 
 ## Plan budowy
-Plan zatwierdzony. Etapy 1–3 wykonane; następny jest wyjaśniacz z kontrolą dowodów.
+Plan zatwierdzony. Etapy 1–4 wykonane; następne są interpretacja pytań i API.
 
 ## Wazne decyzje
 

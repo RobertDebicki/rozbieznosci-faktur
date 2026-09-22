@@ -7,6 +7,21 @@ Zapis zmian w projekcie — najnowsze wpisy na górze.
 ## 2026-09-22 — Robert Dębicki
 
 **✅ Zrobione:**
+- Dodano wyjaśniacz z walidacją cytatów, kwot i przyczyn oraz uczciwym `unknown`.
+- Dodano adapter Groq i jawną symulację modelu dla danych demonstracyjnych.
+- Sprawdzono wszystkie 30 spraw syntetycznych bez wywołania zewnętrznego API.
+
+**🚧 W toku / nie wdrożone:**
+- Interpretacja pytań, API, interfejs i końcowy raport ewaluacyjny.
+
+**🎯 Następny krok:**
+- Zbudować interpretację pytań i API analizy.
+
+---
+
+## 2026-09-22 — Robert Dębicki
+
+**✅ Zrobione:**
 - Dodano indeks fragmentów dokumentów z lokalizatorem i SQLite FTS5.
 - Dodano wyszukiwanie hybrydowe w granicach projektu oraz oznaczanie niedostępnych źródeł.
 - Dodano opcjonalny model embeddingów, tryb bez modelu i testy wyszukiwania.

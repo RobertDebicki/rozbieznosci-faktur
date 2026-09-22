@@ -92,7 +92,7 @@ nieczytelny dokument jest oznaczony jako niedostępny. Uruchomić
 `pytest testy/test_szukaj.py -q` przed i po wdrożeniu oraz `python -m
 skrypty.indeksuj` na danych demo.
 
-## Etap 4 — Wyjaśniacz z kontrolą dowodów
+## Etap 4 — Wyjaśniacz z kontrolą dowodów ✅
 
 **Wynik:** różnica otrzymuje jedną z uzgodnionych przyczyn tylko wtedy, gdy
 walidator potwierdzi istniejący cytat. Bez dowodu status to `unknown`.

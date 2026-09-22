@@ -1,6 +1,6 @@
 # Rozbieznosci faktura vs wycena — agent dochodzeniowy
 
-> 🚧 Brief, mockup, architektura i plan zatwierdzone. Działają generator danych, deterministyczny detektor i indeks dowodów. Interfejs i wyjaśniacz powstaną w kolejnych etapach.
+> 🚧 Brief, mockup, architektura i plan zatwierdzone. Działają generator danych, deterministyczny detektor, indeks dowodów i wyjaśniacz. Interfejs powstanie w kolejnych etapach.
 
 ## Problem
 
@@ -32,7 +32,7 @@ dowodu w tekscie. Dzieki temu kwota w raporcie nigdy nie jest zmyslona.
 | Dane syntetyczne | ✅ generator i lokalne dokumenty |
 | Zestaw ewaluacyjny | ✅ 30 spraw, w tym 5 bez potwierdzalnej przyczyny |
 | Plan budowy | ✅ zatwierdzony; `.Codex/build-plan.md` |
-| Implementacja | ⏳ etapy 1–3 z 8 |
+| Implementacja | ⏳ etapy 1–4 z 8 |
 | Wyniki i pomiary | ❌ |
 
 ## Dane
@@ -74,3 +74,10 @@ uv run --extra retrieval python -m skrypty.indeksuj
 
 W obu trybach fragmenty są filtrowane według projektu. Dokument, którego
 nie można odczytać, jest oznaczany jako niedostępny zamiast trafiać do wyników.
+
+Wyjaśniacz ma jawny `DemoProvider`, który symuluje odpowiedzi na przygotowanych
+danych syntetycznych. Adapter `GroqProvider` może użyć klucza
+`GROQ_API_KEY` ze środowiska. Walidator przyjmuje tylko cytat istniejący
+w podanym fragmencie oraz kwotę zgodną z detektorem; w przeciwnym razie
+zwraca „przyczyna nieustalona”. Wywołanie prawdziwego API wymaga własnego
+klucza i nie jest potrzebne do lokalnej demonstracji.

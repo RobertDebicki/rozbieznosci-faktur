@@ -42,7 +42,8 @@ Plan w `../.Codex/build-plan.md` został zatwierdzony przez użytkownika.
 Etap 1: generator danych i zestaw ewaluacyjny — wykonany.
 Etap 2: deterministyczny detektor rozbieżności — wykonany.
 Etap 3: indeks dokumentów i wyszukiwanie dowodów — wykonany.
-Następny jest etap 4: wyjaśniacz z kontrolą dowodów.
+Etap 4: wyjaśniacz z kontrolą dowodów i jawną symulacją — wykonany.
+Następny jest etap 5: interpretacja pytań i API analizy.
 
 ---
 
