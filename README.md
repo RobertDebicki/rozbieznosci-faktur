@@ -1,6 +1,6 @@
 # Rozbieznosci faktura vs wycena — agent dochodzeniowy
 
-> 🚧 Brief, mockup, architektura i plan zatwierdzone. Etap 1 dostarcza dane syntetyczne oraz zestaw ewaluacyjny. Interfejs i agent powstaną w kolejnych etapach.
+> 🚧 Brief, mockup, architektura i plan zatwierdzone. Działają generator danych syntetycznych i deterministyczny detektor. Interfejs i wyjaśniacz powstaną w kolejnych etapach.
 
 ## Problem
 
@@ -32,7 +32,7 @@ dowodu w tekscie. Dzieki temu kwota w raporcie nigdy nie jest zmyslona.
 | Dane syntetyczne | ✅ generator i lokalne dokumenty |
 | Zestaw ewaluacyjny | ✅ 30 spraw, w tym 5 bez potwierdzalnej przyczyny |
 | Plan budowy | ✅ zatwierdzony; `.Codex/build-plan.md` |
-| Implementacja | ⏳ etap 1 z 8 |
+| Implementacja | ⏳ etapy 1–2 z 8 |
 | Wyniki i pomiary | ❌ |
 
 ## Dane
@@ -40,12 +40,13 @@ dowodu w tekscie. Dzieki temu kwota w raporcie nigdy nie jest zmyslona.
 Wylacznie syntetyczne. Repozytorium jest publiczne, wiec nie trafiaja tu zadne dane
 realnego klienta. Generator danych jest w `skrypty/`.
 
-## Uruchomienie etapu 1
+## Uruchomienie danych i detektora
 
 Wymagany jest `uv`. Uruchamia on odpowiednią wersję Pythona w lokalnym `.venv`:
 
 ```bash
 uv run --extra dev python -m skrypty.generuj_dane
+uv run --extra dev python -m skrypty.sprawdz --last-months 12
 uv run --extra dev pytest -q
 ```
 
@@ -54,3 +55,10 @@ Pierwsze polecenie tworzy `dane/demo.sqlite`, dokumenty w
 git i generator jej nie nadpisuje. Do odtworzenia użyj nowej ścieżki
 `--db` lub usuń własną wygenerowaną bazę. Parametr `--as-of RRRR-MM-DD`
 ustawia datę referencyjną spraw demonstracyjnych.
+
+`skrypty.sprawdz` pokazuje faktury z wybranego okresu i ich status:
+`equal`, `difference` albo `not_comparable` (brak przypisanej transzy).
+Przykładowe zawężenie: `--client-id 1 --last-months 6 --min-pln 1000`.
+Różnica jest liczona w kwocie netto wobec pierwotnej wyceny transzy;
+zatwierdzone zmiany są liczone osobno. Jeśli lokalna baza powstała przed
+etapem 2, wygeneruj świeżą bazę pod nową ścieżką `--db`.

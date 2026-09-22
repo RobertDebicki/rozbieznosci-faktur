@@ -27,12 +27,28 @@ Kryteria sukcesu i zakres są w `.claude/project-state.md`.
   `rozbieznosci/models.py`, `skrypty/generuj_dane.py`, `dane/syntetyczne/`,
   `ewaluacja/zestaw.jsonl`; testy w `testy/test_dane.py`.
 
+### Detektor rozbieżności
+
+- `python -m skrypty.sprawdz --last-months 12` pokazuje status i różnicę
+  netto dla faktur z wybranego okresu; `--client-id`, `--from`, `--to`,
+  `--min-pln` i `--min-percent` zawężają wynik.
+- Porównanie odbywa się z wyceną właściwej transzy. Suma faktur tej transzy
+  obejmuje również wcześniejsze faktury spoza wybranego okresu. Pierwotna
+  różnica pozostaje widoczna po zatwierdzeniu aneksu lub rabatu; osobno
+  liczona jest różnica względem kwoty po zatwierdzonych zmianach.
+- Otwarta transza z częściowym fakturowaniem ma status `equal`, dopóki suma
+  nie przekracza wyceny. Faktura bez przypisanej transzy ma status
+  `not_comparable`. VAT i kaucja płatnicza nie zmieniają porównania netto.
+- Pliki: `rozbieznosci/detektor.py`, `rozbieznosci/models.py`,
+  `rozbieznosci/schema.sql`, `skrypty/sprawdz.py`; testy w
+  `testy/test_detektor.py`.
+
 ## Architektura
 
-Pełny opis w `.Codex/architecture.md`. Detektor kwot będzie deterministyczny;
+Pełny opis w `.Codex/architecture.md`. Detektor kwot jest deterministyczny;
 agent językowy później oceni dowody dla różnic. Projekt jest jednym lokalnym
-serwisem z bazą SQLite. Obecnie działa tylko generator danych; API i UI są
-następnymi etapami.
+serwisem z bazą SQLite. Obecnie działają generator danych i detektor;
+indeks, API i UI są następnymi etapami.
 
 ## Design system
 
@@ -41,8 +57,8 @@ HTML jest prototypem wizualnym z odpowiedziami na sztywno, nie logiką aplikacji
 
 ## Plan budowy
 
-Plan w `.Codex/build-plan.md` został zatwierdzony. Etap 1: dane i fundament
-wykonane. Następny etap: deterministyczny detektor rozbieżności.
+Plan w `.Codex/build-plan.md` został zatwierdzony. Etapy 1 i 2 wykonane.
+Następny etap: indeks i wyszukiwanie dowodów.
 
 ## Ważne decyzje
 
@@ -50,6 +66,8 @@ wykonane. Następny etap: deterministyczny detektor rozbieżności.
 - Kwoty zapisujemy jako całkowite grosze; VAT pozostaje oddzielny.
 - Etapowanie jest modelowane przez transze, więc częściowa faktura nie jest
   porównywana do pełnej wyceny projektu.
+- Faktury bez mapowania transzy pozostają widoczne z uczciwym statusem
+  `not_comparable`; nie przypisujemy ich automatycznie.
 - Baza demo (`dane/*.sqlite`) jest generowana lokalnie i ignorowana przez git;
   tekstowe źródła i etykiety ewaluacyjne mogą być publiczne.
 - Python 3.12.13 zapewnia `uv` w lokalnym `.venv`; nie trzeba instalować

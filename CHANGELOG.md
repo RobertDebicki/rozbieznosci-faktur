@@ -4,6 +4,21 @@ Zapis zmian w projekcie — najnowsze wpisy na górze.
 
 ---
 
+## 2026-09-22 10:36 — Robert Dębicki
+
+**✅ Zrobione:**
+- Dodano deterministyczny detektor różnic netto dla właściwych transz.
+- Uwzględniono faktury częściowe, zatwierdzone zmiany, filtry klienta i okresu oraz progi.
+- Dodano polecenie demonstracyjne i testy detektora.
+
+**🚧 W toku / nie wdrożone:**
+- Indeks dokumentów, agent wyjaśniający i interfejs przeglądarkowy.
+
+**🎯 Następny krok:**
+- Zbudować indeks dowodów i wyszukiwanie hybrydowe z etapu 3.
+
+---
+
 ## 2026-09-22 10:22 — Robert Dębicki
 
 **✅ Zrobione:**

@@ -156,11 +156,12 @@ def seed_demo(
             )
 
         vat_cents = spec.invoice_cents * 23 // 100
+        retention_cents = spec.invoice_cents // 10 if category == "staged_billing" else 0
         db.execute(
-            "INSERT INTO invoices (id, client_id, project_id, tranche_id, issued_on, number, net_cents, vat_cents) "
-            "VALUES (?, ?, ?, ?, ?, ?, ?, ?)",
-            (case_id, client_id, case_id, first_tranche_id, issue_date, f"FV/2026/{case_id:03d}",
-             spec.invoice_cents, vat_cents),
+            "INSERT INTO invoices (id, client_id, project_id, tranche_id, issued_on, number, net_cents, vat_cents, retention_cents) "
+            "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)",
+            (case_id, client_id, case_id, first_tranche_id, issue_date, f"FV/{issue_date[:4]}/{case_id:03d}",
+             spec.invoice_cents, vat_cents, retention_cents),
         )
         db.execute(
             "INSERT INTO invoice_items (invoice_id, description, net_cents, vat_cents) "

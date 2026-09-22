@@ -118,6 +118,15 @@ def test_generated_invoice_dates_follow_demo_date(tmp_path: Path) -> None:
         assert len({day.month for day in dates}) >= 6
 
 
+def test_invoice_number_uses_its_issue_year(tmp_path: Path) -> None:
+    """Po zmianie roku numer faktury nie może nadal wskazywać 2026."""
+    with open_db(tmp_path / "demo.sqlite") as db:
+        seed_demo(db, corpus_dir=tmp_path / "docs", as_of=date(2027, 3, 1))
+        rows = db.execute("SELECT number, issued_on FROM invoices").fetchall()
+        assert {issued_on[:4] for _, issued_on in rows} == {"2026", "2027"}
+        assert all(number.split("/")[1] == issued_on[:4] for number, issued_on in rows)
+
+
 def test_cli_writes_evaluation_set_with_unknown_cases(tmp_path: Path) -> None:
     """Ewaluacja musi mieć 30 etykiet, w tym 5 spraw bez dowodu."""
     db_path = tmp_path / "demo.sqlite"

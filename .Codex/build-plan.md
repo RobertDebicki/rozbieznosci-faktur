@@ -51,7 +51,7 @@ utraty groszy. Uruchomić `pytest testy/test_dane.py -q`, zobaczyć błąd,
 wdrożyć minimum i uruchomić ponownie. Na końcu `python -m skrypty.generuj_dane`
 i sprawdzenie liczby spraw ewaluacyjnych.
 
-## Etap 2 — Detektor rozbieżności
+## Etap 2 — Detektor rozbieżności ✅
 
 **Wynik:** polecenie demonstracyjne zwraca listę policzonych spraw bez LLM.
 Faktura częściowa dla otwartego etapu nie staje się alarmem przez porównanie
